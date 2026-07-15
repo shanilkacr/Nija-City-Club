@@ -39,85 +39,63 @@ export const CLUB_INTRO = {
     "Whether for work, recovery, or celebration, the Club is an oasis of calm within the bustling city.",
 } as const;
 
-/** Scroll-synced facility panels — two-column, image + point summaries. */
+/** Scroll-synced facility panels — two-column, image + short summary. */
 export const FACILITY_PANELS: FacilityPanel[] = [
   {
-    id: "city-club",
-    label: "City Club",
+    id: "club-house",
+    label: "Club House",
     href: "/membership",
-    image: "/images/home/hero.jpg",
-    blurb: "The heart of the house — membership, concierge, and private privilege.",
-    points: [
-      "Resident, Associate, and Corporate membership",
-      "Dedicated concierge and guest arrangements",
-      "Privileges across fitness, pool, café, and events",
-      "Preferred access to Nija Luxury Wellness",
-    ],
+    image: "/images/home/ambiance.jpg",
+    blurb: "The heart of membership and private hospitality.",
+    points: [],
   },
   {
-    id: "conference",
-    label: "Conference & Meetings",
-    href: "/event-space",
-    image: "/images/home/crosslink-events.jpg",
-    blurb: "Boardrooms and receptions hosted with discretion.",
-    points: [
-      "Private boardrooms and breakout rooms",
-      "Events, conferences, and evening receptions",
-      "In-house treatment options for guests",
-      "Private dining for celebration tables",
-    ],
-  },
-  {
-    id: "athletic",
-    label: "Athletic",
+    id: "fitness",
+    label: "Fitness",
     href: "/fitness",
-    image: "/images/home/crosslink-fitness.jpg",
-    blurb: "Training floors shaped for intention, not spectacle.",
-    points: [
-      "Full gym access — monthly, weekly, or day rates",
-      "Personal training by appointment",
-      "Yoga and Pilates studio sessions",
-      "Recovery spaces after training",
-    ],
+    image: "/images/fitness/hero.jpg",
+    blurb: "Training floors shaped for intention.",
+    points: [],
   },
   {
-    id: "pool",
+    id: "recovery",
+    label: "Recovery",
+    href: "/fitness#recovery",
+    image: "/images/fitness/recovery.jpg",
+    blurb: "Quiet rooms to restore after training.",
+    points: [],
+  },
+  {
+    id: "swimming",
     label: "Swimming",
     href: "/swimming",
-    image: "/images/home/crosslink-swimming.jpg",
-    blurb: "Lane swimming and quiet immersion, privately held.",
-    points: [
-      "Pool access for members and invited guests",
-      "Group and individual swim coaching",
-      "Post-swim recovery rooms",
-      "Towel service and changing facilities",
-    ],
-  },
-  {
-    id: "cafe",
-    label: "Café & Dining",
-    href: "/cafe",
-    image: "/images/home/crosslink-cafe.jpg",
-    blurb: "Quiet tables for the unhurried mid-day.",
-    points: [
-      "Light plates and considered coffee",
-      "Member rates throughout the day",
-      "Seating for informal meetings",
-      "Private dining via Event Space",
-    ],
+    image: "/images/swimming/pool.jpg",
+    blurb: "Lane swimming and quiet immersion.",
+    points: [],
   },
   {
     id: "wellness",
     label: "Wellness",
     href: "/wellness",
-    image: "/images/wellness/hero.jpg",
-    blurb: "A private bridge to spa, Ayurveda, and ritual.",
-    points: [
-      "Direct link to Nija Luxury Wellness",
-      "Member preferential booking",
-      "Spa, facial, and Ayurvedic treatments",
-      "Coordinated same-day transfers",
-    ],
+    image: "/images/wellness/ambiance.jpg",
+    blurb: "Spa, Ayurveda, and ritual next door.",
+    points: [],
+  },
+  {
+    id: "cafe",
+    label: "Café & Dining",
+    href: "/cafe",
+    image: "/images/cafe/ambiance.jpg",
+    blurb: "Light plates and unhurried tables.",
+    points: [],
+  },
+  {
+    id: "conference",
+    label: "Conference & Meetings",
+    href: "/event-space",
+    image: "/images/event-space/meeting.jpg",
+    blurb: "Boardrooms and receptions with discretion.",
+    points: [],
   },
 ];
 
@@ -188,12 +166,6 @@ export const HOME_STORY_SNAPS = [
     href: "/fitness",
   },
   {
-    id: "water",
-    image: "/images/home/lifestyle.jpg",
-    caption: "Water",
-    href: "/swimming",
-  },
-  {
     id: "gather",
     image: "/images/home/crosslink-cafe.jpg",
     caption: "Gather",
@@ -205,13 +177,13 @@ export const HOME_STORY_SNAPS = [
     caption: "Host",
     href: "/event-space",
   },
-  {
-    id: "restore",
-    image: "/images/wellness/ambiance.jpg",
-    caption: "Restore",
-    href: "/wellness",
-  },
 ] as const;
+
+/** Full-bleed image above the home Visit CTA. */
+export const HOME_VISIT_IMAGE = {
+  image: "/images/home/lifestyle.jpg",
+  alt: "Quiet moments at Nija City Club",
+} as const;
 
 /** Interleaved editorial image splits between lower sections. */
 export const HOME_EDITORIALS: EditorialSplit[] = [
@@ -224,28 +196,6 @@ export const HOME_EDITORIALS: EditorialSplit[] = [
     image: "/images/membership/ambiance.jpg",
     href: "/membership",
     ctaLabel: "View Membership",
-    imagePosition: "right",
-  },
-  {
-    id: "wellness-interlude",
-    eyebrow: "Restore",
-    title: "Beyond the club floors",
-    body:
-      "When the day asks for stillness, the Luxury Wellness house waits — spa, Ayurveda, and ritual under the same brand.",
-    image: "/images/wellness/ambiance.jpg",
-    href: "/wellness",
-    ctaLabel: "Explore Wellness",
     imagePosition: "left",
-  },
-  {
-    id: "pool-interlude",
-    eyebrow: "Water",
-    title: "Immersion, privately held",
-    body:
-      "Lane mornings and unhurried afternoons — a pool reserved for members who prefer quiet water to crowds.",
-    image: "/images/swimming/pool.jpg",
-    href: "/swimming",
-    ctaLabel: "Discover Swimming",
-    imagePosition: "right",
   },
 ];

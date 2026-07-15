@@ -1,3 +1,4 @@
+import Image from "next/image";
 import {
   AmbianceHero,
   CTABanner,
@@ -15,6 +16,7 @@ import {
   FACILITY_PANELS,
   HOME_EDITORIALS,
   HOME_STORY_SNAPS,
+  HOME_VISIT_IMAGE,
 } from "@/config/club";
 
 export default function HomePage() {
@@ -43,11 +45,17 @@ export default function HomePage() {
 
       <ClubRules />
 
-      <EditorialImageSplit item={HOME_EDITORIALS[1]} />
-
       <ClubHours />
 
-      <EditorialImageSplit item={HOME_EDITORIALS[2]} />
+      <section className="relative min-h-[48vh] w-full overflow-hidden bg-sand md:min-h-[56vh]">
+        <Image
+          src={HOME_VISIT_IMAGE.image}
+          alt={HOME_VISIT_IMAGE.alt}
+          fill
+          sizes="100vw"
+          className="object-cover"
+        />
+      </section>
 
       <CTABanner
         eyebrow="Visit"

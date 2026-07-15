@@ -18,6 +18,11 @@ import { cn } from "@/lib/cn";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const editorialImageColumnClass =
+  "flex items-center justify-center py-10 lg:py-14";
+const editorialImageFrameClass =
+  "relative aspect-square w-full max-w-[300px] overflow-hidden bg-sand sm:max-w-[360px] lg:max-w-[400px]";
+
 /** Centered club introduction — no address column. */
 export function ClubIntro() {
   return (
@@ -65,18 +70,15 @@ export function ClubAmenities() {
   }, []);
 
   return (
-    <section
-      ref={ref}
-      className="flex max-h-[90vh] items-center overflow-hidden bg-stone"
-    >
-      <div className="mx-auto grid h-full max-h-[90vh] w-full max-w-content items-center gap-8 px-[var(--section-x)] py-12 lg:grid-cols-2 lg:gap-14 lg:py-0">
-        <div className="relative aspect-[4/5] max-h-[min(72vh,520px)] overflow-hidden bg-sand lg:order-2 lg:aspect-auto lg:h-[min(80vh,640px)]">
-          <div data-amenities-image className="absolute inset-0">
+    <section ref={ref} className="overflow-hidden bg-white">
+      <div className="mx-auto grid w-full max-w-content items-center gap-8 px-[var(--section-x)] lg:grid-cols-2 lg:gap-14">
+        <div className={cn(editorialImageColumnClass, "lg:order-2")}>
+          <div data-amenities-image className={editorialImageFrameClass}>
             <Image
               src={CLUB_AMENITIES.image}
               alt="Club amenities atmosphere"
               fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
+              sizes="(min-width: 1024px) 400px, 360px"
               className="object-cover"
             />
           </div>
@@ -179,45 +181,45 @@ export function ClubHours() {
   );
 }
 
-/** Two-column editorial image + text — interludes between sections. */
+/** Two-column editorial image + text — same height language as Amenities. */
 export function EditorialImageSplit({ item }: { item: EditorialSplit }) {
   const imageRight = item.imagePosition !== "left";
 
   return (
-    <section className="mx-auto max-w-content px-[var(--section-x)] py-[var(--section-y)]">
-      <Reveal>
-        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
-          <div
-            className={cn(
-              "relative aspect-[4/5] overflow-hidden bg-sand lg:aspect-[5/6]",
-              imageRight ? "lg:order-2" : "lg:order-1",
-            )}
-          >
+    <section className="overflow-hidden">
+      <div className="mx-auto grid w-full max-w-content items-center gap-8 px-[var(--section-x)] lg:grid-cols-2 lg:gap-14">
+        <div
+          className={cn(
+            editorialImageColumnClass,
+            imageRight ? "lg:order-2" : "lg:order-1",
+          )}
+        >
+          <div className={editorialImageFrameClass}>
             <Image
               src={item.image}
               alt={item.title}
               fill
-              sizes="(min-width: 1024px) 45vw, 100vw"
+              sizes="(min-width: 1024px) 400px, 360px"
               className="object-cover"
             />
           </div>
-          <div className={imageRight ? "lg:order-1" : "lg:order-2"}>
-            <p className="eyebrow text-ink/45">{item.eyebrow}</p>
-            <h2 className="mt-3 font-display text-(length:--text-h2) leading-snug">
-              {item.title}
-            </h2>
-            <p className="mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65">
-              {item.body}
-            </p>
-            <Link
-              href={item.href}
-              className="mt-7 inline-block text-[11px] tracking-[0.16em] uppercase underline underline-offset-4"
-            >
-              {item.ctaLabel}
-            </Link>
-          </div>
         </div>
-      </Reveal>
+        <Reveal className={imageRight ? "lg:order-1" : "lg:order-2"}>
+          <p className="eyebrow text-ink/45">{item.eyebrow}</p>
+          <h2 className="mt-3 font-display text-(length:--text-h2) leading-snug">
+            {item.title}
+          </h2>
+          <p className="mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65">
+            {item.body}
+          </p>
+          <Link
+            href={item.href}
+            className="mt-7 inline-block text-[11px] tracking-[0.16em] uppercase underline underline-offset-4"
+          >
+            {item.ctaLabel}
+          </Link>
+        </Reveal>
+      </div>
     </section>
   );
 }

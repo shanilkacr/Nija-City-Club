@@ -28,7 +28,7 @@ export function CTABanner({
 
   return (
     <Section tone={tone} className={className}>
-      <div className="mx-auto max-w-3xl text-center">
+      <div className="mx-auto flex max-w-3xl flex-col items-center text-center">
         {eyebrow ? (
           <p className={cn("eyebrow", inverted ? "text-cream/55" : "text-ink/50")}>
             {eyebrow}
@@ -45,14 +45,14 @@ export function CTABanner({
         {description ? (
           <p
             className={cn(
-              "mt-4 text-[13px]",
+              "mx-auto mt-4 max-w-md text-[13px]",
               inverted ? "text-cream/70" : "text-ink/65",
             )}
           >
             {description}
           </p>
         ) : null}
-        <div className="mt-8 flex flex-wrap justify-center gap-3">
+        <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
           <Button
             href={cta.href}
             external={cta.external}
@@ -63,8 +63,7 @@ export function CTABanner({
           {secondaryCta ? (
             <Button
               href={secondaryCta.href}
-              variant={inverted ? "ghost" : "outline"}
-              className={inverted ? "text-cream hover:text-cream/70" : undefined}
+              variant={inverted ? "outlineLight" : "outline"}
             >
               {secondaryCta.label}
             </Button>

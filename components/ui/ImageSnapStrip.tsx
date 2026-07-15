@@ -46,10 +46,10 @@ export function ImageSnapStrip({ items, className }: ImageSnapStripProps) {
   const loop = [...items, ...items];
 
   return (
-    <section className={cn("overflow-hidden bg-ink py-[var(--section-y)]", className)}>
+    <section className={cn("overflow-hidden bg-stone py-[var(--section-y)]", className)}>
       <div className="mb-8 px-[var(--section-x)] md:mb-10">
-        <p className="eyebrow text-cream/50">Inside the club</p>
-        <h2 className="mt-3 font-display text-(length:--text-h2) text-cream">
+        <p className="eyebrow text-ink/45">Inside the club</p>
+        <h2 className="mt-3 font-display text-(length:--text-h2) text-ink">
           A day in motion
         </h2>
       </div>

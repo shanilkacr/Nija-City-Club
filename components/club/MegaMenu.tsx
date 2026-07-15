@@ -1,11 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useId, useState, type ReactNode } from "react";
+import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { NAVIGATION, type NavItem } from "@/config/navigation";
 import { SITE } from "@/config/site";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/cn";
+import {
+  HEADER_FILL_THRESHOLD,
+  subscribeHeroScroll,
+} from "@/lib/hero-scroll";
 
 function isExternalHref(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -93,20 +97,44 @@ function MegaPanel({
 }
 
 /**
- * Fixed header: transparent over the hero, solid cream fill on scroll.
+ * Fixed header: transparent over the hero; cream bar slides down from top
+ * in sync with AmbianceHero contraction (see lib/hero-scroll).
  */
 export function MegaMenu() {
   const [openId, setOpenId] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const fillRef = useRef<HTMLDivElement>(null);
+  const progressRef = useRef(0);
+  const scrolledRef = useRef(false);
   const menuId = useId();
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+    const fill = fillRef.current;
+    if (!fill) return;
+
+    const applyChrome = (progress: number, forceSolid: boolean) => {
+      const p = forceSolid ? 1 : progress;
+      // Slide cream bar down from above (0 = fully hidden, 1 = fully in place)
+      fill.style.translate = "none";
+      fill.style.transform = `translate3d(0, ${(1 - p) * -100}%, 0)`;
+    };
+
+    const forceSolid = Boolean(openId) || mobileOpen;
+    applyChrome(progressRef.current, forceSolid);
+
+    return subscribeHeroScroll((progress) => {
+      progressRef.current = progress;
+      const force = Boolean(openId) || mobileOpen;
+      applyChrome(progress, force);
+
+      const next = progress >= HEADER_FILL_THRESHOLD || force;
+      if (next !== scrolledRef.current) {
+        scrolledRef.current = next;
+        setScrolled(next);
+      }
+    });
+  }, [openId, mobileOpen]);
 
   useEffect(() => {
     if (!mobileOpen) return;
@@ -126,15 +154,16 @@ export function MegaMenu() {
 
   return (
     <header
-      className={cn(
-        "fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,box-shadow] duration-300",
-        filled
-          ? "border-b border-line bg-cream shadow-[0_8px_24px_rgba(33,29,24,0.06)]"
-          : "border-b border-transparent bg-transparent",
-      )}
+      className="fixed inset-x-0 top-0 z-40 overflow-hidden"
       onMouseLeave={() => setOpenId(null)}
     >
-      <div className="mx-auto flex max-w-content items-center justify-between gap-6 px-[var(--section-x)] py-4 md:py-5">
+      <div
+        ref={fillRef}
+        aria-hidden
+        className="pointer-events-none absolute inset-0 bg-cream will-change-transform"
+        style={{ transform: "translate3d(0, -100%, 0)" }}
+      />
+      <div className="relative mx-auto flex max-w-content items-center justify-between gap-6 px-[var(--section-x)] py-4 md:py-5">
         <Link
           href="/"
           className={cn(

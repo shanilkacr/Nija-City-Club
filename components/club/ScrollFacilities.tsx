@@ -42,14 +42,11 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
         pin: pin,
         anticipatePin: 1,
         invalidateOnRefresh: true,
-        snap:
-          panels.length > 1
-            ? {
-                snapTo: 1 / (panels.length - 1),
-                duration: { min: 0.15, max: 0.45 },
-                delay: 0.05,
-              }
-            : false,
+        snap: {
+          snapTo: 1 / (panels.length - 1),
+          duration: { min: 0.15, max: 0.45 },
+          delay: 0.05,
+        },
         onUpdate: (self) => {
           const index = Math.min(
             panels.length - 1,

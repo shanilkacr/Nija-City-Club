@@ -53,7 +53,7 @@ export const FACILITY_PANELS: FacilityPanel[] = [
     id: "fitness",
     label: "Fitness",
     href: "/fitness",
-    image: "/images/fitness/hero.jpg",
+    image: "/images/fitness/fitness.JPG",
     blurb: "Training floors shaped for intention.",
     points: [],
   },

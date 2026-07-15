@@ -1,0 +1,147 @@
+@import "tailwindcss";
+
+/*
+  NIJA design tokens — shared foundation with NIJA Luxury Wellness.
+  Portable: extract this block (+ @theme) into a shared package later.
+  City Club adds --color-accent and --color-stone for a cooler club register
+  while keeping the same ink / cream / sand / line base.
+*/
+
+:root {
+  /* Font system — change these two lines to re-theme the whole site */
+  --font-display: "Cormorant Garamond", serif;
+  --font-body: "Jost", sans-serif;
+
+  /* Restrained type scale — 14px body, Aman-quiet hierarchy */
+  --text-hero: clamp(2rem, 4.5vw, 3.25rem);
+  --text-h2: clamp(1.375rem, 2.2vw, 1.875rem);
+  --text-h3: clamp(1.0625rem, 1.5vw, 1.25rem);
+  --text-body: 0.875rem; /* 14px */
+  --text-small: 0.6875rem; /* 11px */
+
+  /* Shared palette (matches Luxury Wellness) */
+  --color-ink: #211d18;
+  --color-cream: #f7f3ec;
+  --color-sand: #ded3c0;
+  --color-line: #e3d9c8;
+
+  /* City Club extensions — safe to backport to Wellness */
+  --color-accent: #6b5a45;
+  --color-stone: #ece6db;
+  --color-ink-muted: rgba(33, 29, 24, 0.68);
+
+  /* Spacing rhythm — slightly tighter to favour imagery */
+  --section-y: clamp(3.5rem, 8vw, 6rem);
+  --section-x: clamp(1.25rem, 4vw, 2.5rem);
+  --content-max: 80rem;
+}
+
+@theme inline {
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --color-ink: var(--color-ink);
+  --color-cream: var(--color-cream);
+  --color-sand: var(--color-sand);
+  --color-line: var(--color-line);
+  --color-accent: var(--color-accent);
+  --color-stone: var(--color-stone);
+}
+
+body {
+  background: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  font-weight: 300;
+  letter-spacing: 0.015em;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+/* Scroll reveals — intentional, slow-paced motion */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes reveal-scale {
+  from {
+    opacity: 0;
+    transform: scale(1.03);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 0.95s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.reveal-fade.is-visible {
+  animation: reveal-fade 1s ease forwards;
+}
+
+.reveal-scale.is-visible {
+  animation: reveal-scale 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Horizontal scroll-snap story strip */
+.snap-x-mandatory {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-start {
+  scroll-snap-align: start;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-fade,
+  .reveal-scale {
+    opacity: 1;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .snap-x-mandatory {
+    scroll-snap-type: none;
+  }
+}

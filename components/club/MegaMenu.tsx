@@ -1,0 +1,303 @@
+"use client";
+
+import Link from "next/link";
+import { useEffect, useId, useState, type ReactNode } from "react";
+import { NAVIGATION, type NavItem } from "@/config/navigation";
+import { SITE } from "@/config/site";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/cn";
+
+function isExternalHref(href: string) {
+  return href.startsWith("http://") || href.startsWith("https://");
+}
+
+function NavLink({
+  href,
+  className,
+  children,
+  onClick,
+}: {
+  href: string;
+  className?: string;
+  children: ReactNode;
+  onClick?: () => void;
+}) {
+  if (isExternalHref(href)) {
+    return (
+      <a
+        href={href}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    );
+  }
+  return (
+    <Link href={href} className={className} onClick={onClick}>
+      {children}
+    </Link>
+  );
+}
+
+function MegaPanel({
+  item,
+  onNavigate,
+}: {
+  item: NavItem;
+  onNavigate: () => void;
+}) {
+  if (!item.children?.length) return null;
+
+  return (
+    <div className="absolute left-0 right-0 top-full border-b border-line bg-cream shadow-[0_24px_48px_rgba(33,29,24,0.08)]">
+      <div className="mx-auto grid max-w-content gap-8 px-[var(--section-x)] py-8 md:grid-cols-[1fr_2fr]">
+        <div>
+          <p className="eyebrow text-ink/45">{item.label}</p>
+          <p className="mt-3 max-w-sm font-display text-lg leading-snug md:text-xl">
+            {item.description}
+          </p>
+          <NavLink
+            href={item.href}
+            onClick={onNavigate}
+            className="mt-5 inline-block text-[11px] tracking-[0.14em] uppercase underline underline-offset-4"
+          >
+            Explore {item.label}
+          </NavLink>
+        </div>
+        <ul className="grid gap-5 sm:grid-cols-2">
+          {item.children.map((child) => (
+            <li key={`${child.href}-${child.label}`}>
+              <NavLink
+                href={child.href}
+                onClick={onNavigate}
+                className="group block border-t border-line pt-3"
+              >
+                <span className="font-display text-base transition-colors group-hover:text-accent md:text-lg">
+                  {child.label}
+                </span>
+                {child.description ? (
+                  <span className="mt-1.5 block text-[12px] text-ink/55">
+                    {child.description}
+                  </span>
+                ) : null}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
+
+/**
+ * Fixed header: transparent over the hero, solid cream fill on scroll.
+ */
+export function MegaMenu() {
+  const [openId, setOpenId] = useState<string | null>(null);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const menuId = useId();
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 48);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [mobileOpen]);
+
+  const closeAll = () => {
+    setOpenId(null);
+    setMobileOpen(false);
+  };
+
+  const filled = scrolled || Boolean(openId) || mobileOpen;
+
+  return (
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,box-shadow] duration-300",
+        filled
+          ? "border-b border-line bg-cream shadow-[0_8px_24px_rgba(33,29,24,0.06)]"
+          : "border-b border-transparent bg-transparent",
+      )}
+      onMouseLeave={() => setOpenId(null)}
+    >
+      <div className="mx-auto flex max-w-content items-center justify-between gap-6 px-[var(--section-x)] py-4 md:py-5">
+        <Link
+          href="/"
+          className={cn(
+            "shrink-0 font-display text-xl tracking-[0.1em] transition-colors",
+            filled ? "text-ink" : "text-white",
+          )}
+          onClick={closeAll}
+        >
+          <span className="block leading-none">{SITE.brand}</span>
+          <span
+            className={cn(
+              "mt-1 block text-[0.5rem] font-body tracking-[0.28em] uppercase transition-colors",
+              filled ? "text-ink/50" : "text-white/65",
+            )}
+          >
+            City Club
+          </span>
+        </Link>
+
+        <nav
+          className="hidden items-center gap-0.5 lg:flex"
+          aria-label="Primary"
+        >
+          {NAVIGATION.map((item) => {
+            const hasChildren = Boolean(item.children?.length);
+            const isOpen = openId === item.label;
+
+            return (
+              <div
+                key={item.label}
+                className="relative"
+                onMouseEnter={() =>
+                  setOpenId(hasChildren ? item.label : null)
+                }
+              >
+                {hasChildren ? (
+                  <button
+                    type="button"
+                    className={cn(
+                      "px-2.5 py-2 text-[11px] tracking-[0.14em] uppercase transition-colors",
+                      filled
+                        ? "text-ink/80 hover:text-ink"
+                        : "text-white/80 hover:text-white",
+                      isOpen && (filled ? "text-ink" : "text-white"),
+                    )}
+                    aria-expanded={isOpen}
+                    aria-controls={menuId}
+                    onClick={() =>
+                      setOpenId(isOpen ? null : item.label)
+                    }
+                  >
+                    {item.label}
+                  </button>
+                ) : (
+                  <NavLink
+                    href={item.href}
+                    className={cn(
+                      "px-2.5 py-2 text-[11px] tracking-[0.14em] uppercase transition-colors",
+                      filled
+                        ? "text-ink/80 hover:text-ink"
+                        : "text-white/80 hover:text-white",
+                    )}
+                  >
+                    {item.label}
+                  </NavLink>
+                )}
+              </div>
+            );
+          })}
+        </nav>
+
+        <div className="flex items-center gap-3">
+          <Button
+            href="/membership"
+            size="sm"
+            variant={filled ? "outline" : "outlineLight"}
+            className="hidden sm:inline-flex"
+          >
+            Membership
+          </Button>
+          <button
+            type="button"
+            className={cn(
+              "inline-flex h-10 w-10 items-center justify-center border transition-colors lg:hidden",
+              filled ? "border-ink/30" : "border-white/40",
+            )}
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileOpen}
+            onClick={() => setMobileOpen((v) => !v)}
+          >
+            <span className="sr-only">Menu</span>
+            <span className="flex flex-col gap-1.5">
+              <span
+                className={cn(
+                  "block h-px w-5 transition-transform",
+                  filled ? "bg-ink" : "bg-white",
+                  mobileOpen && "translate-y-[3.5px] rotate-45",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-px w-5 transition-opacity",
+                  filled ? "bg-ink" : "bg-white",
+                  mobileOpen && "opacity-0",
+                )}
+              />
+              <span
+                className={cn(
+                  "block h-px w-5 transition-transform",
+                  filled ? "bg-ink" : "bg-white",
+                  mobileOpen && "-translate-y-[3.5px] -rotate-45",
+                )}
+              />
+            </span>
+          </button>
+        </div>
+      </div>
+
+      <div id={menuId} className="relative hidden lg:block">
+        {NAVIGATION.map((item) =>
+          openId === item.label && item.children?.length ? (
+            <MegaPanel key={item.label} item={item} onNavigate={closeAll} />
+          ) : null,
+        )}
+      </div>
+
+      {mobileOpen ? (
+        <div className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-line bg-cream lg:hidden">
+          <div className="space-y-1 px-[var(--section-x)] py-6">
+            {NAVIGATION.map((item) => (
+              <div key={item.label} className="border-b border-line py-4">
+                <NavLink
+                  href={item.href}
+                  onClick={closeAll}
+                  className="font-display text-xl"
+                >
+                  {item.label}
+                </NavLink>
+                {item.children?.length ? (
+                  <ul className="mt-3 space-y-2 pl-1">
+                    {item.children.map((child) => (
+                      <li key={`${child.href}-${child.label}`}>
+                        <NavLink
+                          href={child.href}
+                          onClick={closeAll}
+                          className="text-[12px] text-ink/65"
+                        >
+                          {child.label}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                ) : null}
+              </div>
+            ))}
+            <div className="pt-6">
+              <Button href="/contact" variant="solid" className="w-full">
+                Contact Concierge
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+    </header>
+  );
+}

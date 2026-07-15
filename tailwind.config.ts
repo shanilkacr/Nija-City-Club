@@ -24,6 +24,7 @@ const config = {
       fontFamily: {
         display: ["var(--font-display)", "serif"],
         body: ["var(--font-body)", "sans-serif"],
+        logo: ["var(--font-logo)", "sans-serif"],
       },
       fontSize: {
         hero: "var(--text-hero)",

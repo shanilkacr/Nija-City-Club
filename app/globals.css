@@ -11,6 +11,7 @@
   /* Font system — change these two lines to re-theme the whole site */
   --font-display: "Cormorant Garamond", serif;
   --font-body: "Jost", sans-serif;
+  --font-logo: "Montserrat", sans-serif;
 
   /* Restrained type scale — 14px body, Aman-quiet hierarchy */
   --text-hero: clamp(2rem, 4.5vw, 3.25rem);
@@ -39,6 +40,7 @@
 @theme inline {
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+  --font-logo: var(--font-logo);
   --color-ink: var(--color-ink);
   --color-cream: var(--color-cream);
   --color-sand: var(--color-sand);
@@ -68,6 +70,10 @@ h3,
   font-family: var(--font-display);
   font-weight: 400;
   letter-spacing: 0.01em;
+}
+
+.font-logo {
+  font-family: var(--font-logo);
 }
 
 .eyebrow {

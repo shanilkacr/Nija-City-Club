@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useId, useRef, useState, type ReactNode } from "react";
 import { NAVIGATION, type NavItem } from "@/config/navigation";
@@ -163,24 +164,25 @@ export function MegaMenu() {
         className="pointer-events-none absolute inset-0 bg-cream will-change-transform"
         style={{ transform: "translate3d(0, -100%, 0)" }}
       />
-      <div className="relative mx-auto flex max-w-content items-center justify-between gap-6 px-[var(--section-x)] py-4 md:py-5">
+      <div className="relative mx-auto flex max-w-content items-center justify-between gap-6 px-[var(--section-x)] py-3 md:py-4">
         <Link
           href="/"
-          className={cn(
-            "shrink-0 font-display text-xl tracking-[0.1em] transition-colors",
-            filled ? "text-ink" : "text-white",
-          )}
+          className="shrink-0 transition-opacity hover:opacity-90"
           onClick={closeAll}
+          aria-label={SITE.name}
         >
-          <span className="block leading-none">{SITE.brand}</span>
-          <span
+          <Image
+            src="/images/brand/logo.png"
+            alt={SITE.name}
+            width={498}
+            height={501}
+            priority
             className={cn(
-              "mt-1 block text-[0.5rem] font-body tracking-[0.28em] uppercase transition-colors",
-              filled ? "text-ink/50" : "text-white/65",
+              "h-11 w-auto object-contain transition-[filter] duration-300 md:h-14",
+              /* Transparent header: force gold/bronze mark to white */
+              !filled && "brightness-0 invert",
             )}
-          >
-            City Club
-          </span>
+          />
         </Link>
 
         <nav

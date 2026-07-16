@@ -168,7 +168,7 @@ export const FITNESS_SERVICES: ServiceItem[] = [
     description:
       "Studio sessions that favour breath, alignment, and a quieter pace of effort.",
     href: "/fitness#yoga",
-    image: "/images/fitness/yoga.jpg",
+    image: "/images/fitness/yoga1.JPG",
   },
   {
     id: "pilates",
@@ -176,7 +176,7 @@ export const FITNESS_SERVICES: ServiceItem[] = [
     description:
       "Controlled strength work on mat and apparatus, guided by experienced instructors.",
     href: "/fitness#pilates",
-    image: "/images/fitness/pilates.jpg",
+    image: "/images/fitness/pilates1.jpg",
   },
   {
     id: "recovery",
@@ -194,7 +194,7 @@ export const SWIMMING_SERVICES: ServiceItem[] = [
     title: "Pool Access",
     description: "Lane and leisure swimming in a privately held aquatic space.",
     href: "/swimming#pool",
-    image: "/images/swimming/pool.jpg",
+    image: "/images/swimming/swim.jpg",
   },
   {
     id: "training",

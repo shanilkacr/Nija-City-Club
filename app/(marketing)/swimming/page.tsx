@@ -20,7 +20,7 @@ export default function SwimmingPage() {
   return (
     <>
       <AmbianceHero
-        image="/images/swimming/hero.jpg"
+        image="/images/swimming/swimming.jpg"
         alt="Member relaxing at the club pool"
         title="Water and light"
         description="A privately held pool for lane swimming, leisure, and coaching — followed by deliberate recovery."
@@ -51,7 +51,7 @@ export default function SwimmingPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/swimming/pool.jpg"
+            image="/images/swimming/swim.jpg"
             alt="Club swimming pool"
             imagePosition="left"
           >

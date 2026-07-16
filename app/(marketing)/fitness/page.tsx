@@ -27,7 +27,7 @@ export default function FitnessPage() {
   return (
     <>
       <AmbianceHero
-        image="/images/fitness/hero.jpg"
+        image="/images/fitness/fitnesshero1.JPG"
         alt="Fitness studio atmosphere"
         title="Train with intention"
         description="A full gym floor, private coaching, studio practice, and recovery — paced for members who live between effort and rest."
@@ -91,7 +91,7 @@ export default function FitnessPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/yoga.jpg"
+            image="/images/fitness/yoga1.jpg"
             alt="Yoga and stretch practice"
             imagePosition="right"
           >
@@ -108,7 +108,7 @@ export default function FitnessPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/pilates.jpg"
+            image="/images/fitness/pilates1.jpg"
             alt="Pilates studio setting"
             imagePosition="left"
           >
@@ -125,7 +125,7 @@ export default function FitnessPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/recovery.jpg"
+            image="/images/fitness/recovery1.jpg"
             alt="Recovery refreshment ritual"
             imagePosition="right"
           >

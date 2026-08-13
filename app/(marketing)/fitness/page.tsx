@@ -29,8 +29,9 @@ export default function FitnessPage() {
       <AmbianceHero
         image="/images/fitness/fitnesshero1.JPG"
         alt="Fitness studio atmosphere"
-        title="Train with intention"
-        description="A full gym floor, private coaching, studio practice, and recovery — paced for members who live between effort and rest."
+        eyebrow="Train With Intention"
+        title="A Premium Fitness Club in Colombo"
+        description="NIJA City Club brings together premium gym facilities, personal training, yoga, Pilates, mobility, and recovery in a private fitness environment designed for focused progress."
         cta={{ label: "View Gym Access", href: "#gym" }}
         height="tall"
         priority
@@ -40,8 +41,8 @@ export default function FitnessPage() {
         <Reveal>
           <SectionHeader
             eyebrow="Gym"
-            title="Access that flexes with your calendar"
-            description="Monthly, weekly, or day rates — for members and invited guests."
+            title="A Gym Designed Around Your Goals"
+            description="Whether you are building strength, improving mobility, returning to training, or maintaining a consistent routine, NIJA provides a considered environment for purposeful exercise."
             className="mb-12"
           />
         </Reveal>
@@ -79,9 +80,11 @@ export default function FitnessPage() {
             imagePosition="left"
           >
             <SectionHeader
-              eyebrow="Personal Trainer"
+              eyebrow="Personal Training in Colombo"
               title="Coaching shaped around you"
-              description="Strength, mobility, athletic return, or quiet consistency. Sessions are booked through concierge and held on the gym floor or in private studios."
+              description="Work one-to-one with a personal trainer to create a training approach around your goals.
+
+Sessions can focus on strength, mobility, conditioning, athletic performance, or returning to movement after time away."
             />
           </ImageBlock>
         </Reveal>
@@ -130,9 +133,11 @@ export default function FitnessPage() {
             imagePosition="right"
           >
             <SectionHeader
-              eyebrow="Recovery"
+              eyebrow="Recovery After Training"
               title="The other half of training"
-              description="Soft tissue, stretch, and quiet rooms close the loop — so effort does not accumulate into fatigue."
+              description="Training is only one part of performance.
+
+NIJA's recovery experiences are designed to complement your workout with stretching, soft-tissue work, mobility, and dedicated spaces to slow down after exertion."
             />
           </ImageBlock>
         </Reveal>

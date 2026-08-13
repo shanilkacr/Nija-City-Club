@@ -14,6 +14,7 @@ import { Button } from "./Button";
 export type AmbianceHeroProps = {
   image: string;
   alt: string;
+  eyebrow?: string;
   title: string;
   description?: string;
   cta?: { label: string; href: string; external?: boolean };
@@ -38,6 +39,7 @@ const heightClass = {
 export function AmbianceHero({
   image,
   alt,
+  eyebrow,
   title,
   description,
   cta,
@@ -142,7 +144,15 @@ export function AmbianceHero({
           {/* Flat scrim — no gradients */}
           <div className="absolute inset-0 bg-black/35" />
           <div className="relative mx-auto w-full max-w-content px-[var(--section-x)] pb-16 md:pb-24">
-            <h1 className="max-w-xl font-display text-(length:--text-hero) leading-[1.08] text-white">
+            {eyebrow ? (
+              <p className="eyebrow text-white/55">{eyebrow}</p>
+            ) : null}
+            <h1
+              className={cn(
+                "max-w-xl font-display text-(length:--text-hero) leading-[1.08] text-white",
+                eyebrow && "mt-3",
+              )}
+            >
               {title}
             </h1>
             {description ? (

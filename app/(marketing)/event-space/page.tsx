@@ -22,8 +22,9 @@ export default function EventSpacePage() {
       <AmbianceHero
         image="/images/event-space/hero.jpg"
         alt="Private event atmosphere"
-        title="Gather with purpose"
-        description="Boardrooms, receptions, in-house treatments, and private dining — hosted with the same restraint as the club floors."
+        eyebrow="Gather with purpose"
+        title="A Private Event & Meeting Venue in Colombo"
+        description="NIJA City Club provides sophisticated spaces for business meetings, conferences, corporate events, private celebrations, product launches, and intimate dinners."
         cta={{ label: "Explore spaces", href: "#meetings" }}
         height="tall"
         priority
@@ -56,9 +57,11 @@ export default function EventSpacePage() {
             imagePosition="left"
           >
             <SectionHeader
-              eyebrow="Meeting Spaces"
+              eyebrow="Executive Meeting Spaces"
               title="Boardrooms and breakouts"
-              description="Natural light, discreet AV, and service that stays in the background. Ideal for half-day workshops and executive sessions."
+              description="Create the right environment for important conversations.
+
+Our meeting spaces are suited to executive meetings, workshops, presentations, strategy sessions, and smaller corporate gatherings."
             />
           </ImageBlock>
         </Reveal>
@@ -73,9 +76,11 @@ export default function EventSpacePage() {
             imagePosition="right"
           >
             <SectionHeader
-              eyebrow="Treatment"
+              eyebrow="Wellness for Your Event"
               title="Wellness woven into the agenda"
-              description="Partner with Luxury Wellness to add express treatments for speakers, teams, or celebration guests — coordinated by a single concierge."
+              description="For selected events, wellness experiences can be incorporated through NIJA Luxury Wellness.
+
+Treatments can be coordinated for teams, speakers, guests, or private celebrations."
             />
           </ImageBlock>
         </Reveal>
@@ -86,13 +91,15 @@ export default function EventSpacePage() {
           <ImageBlock
             layout="split"
             image="/images/event-space/events.jpg"
-            alt="Events and conference setting"
+            alt="Corporate Events & Conferences"
             imagePosition="left"
           >
             <SectionHeader
               eyebrow="Events & Conferences"
               title="Reception-ready rooms"
-              description="Product launches, offsites, and evening receptions — with catering from the café kitchen and overflow into terrace areas when season allows."
+              description="Host conferences, launches, team gatherings, offsites, and receptions in a private club environment.
+
+Catering, hospitality, and event coordination can be arranged through the Club."
             />
           </ImageBlock>
         </Reveal>
@@ -107,9 +114,9 @@ export default function EventSpacePage() {
             imagePosition="right"
           >
             <SectionHeader
-              eyebrow="Private Dining"
+              eyebrow="Private Dining Events"
               title="Tables for celebration"
-              description="Intimate seated dinners and tasting menus for milestones, investor evenings, and family gatherings."
+              description="Create an intimate dining experience for business dinners, investor evenings, family occasions, celebrations, and special gatherings."
             />
           </ImageBlock>
         </Reveal>

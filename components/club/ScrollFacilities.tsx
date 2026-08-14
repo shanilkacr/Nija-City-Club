@@ -38,7 +38,7 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
       ScrollTrigger.create({
         trigger: root,
         start: "top top",
-        end: () => `+=${window.innerHeight * (panels.length - 1)}`,
+        end: () => `+=${window.innerHeight * (panels.length - 1) * 0.5}`,
         pin: pin,
         anticipatePin: 1,
         invalidateOnRefresh: true,

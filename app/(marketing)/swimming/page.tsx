@@ -22,8 +22,9 @@ export default function SwimmingPage() {
       <AmbianceHero
         image="/images/swimming/swimming.jpg"
         alt="Member relaxing at the club pool"
-        title="Water and light"
-        description="A privately held pool for lane swimming, leisure, and coaching — followed by deliberate recovery."
+        eyebrow="Swim in Your Own Rhythm"
+        title="Private Swimming in Colombo"
+        description="NIJA City Club offers a private swimming environment for members who want purposeful training, relaxed immersion, and a quieter alternative to crowded public pools."
         cta={{ label: "Pool Access", href: "#pool" }}
         height="tall"
         priority
@@ -75,7 +76,9 @@ export default function SwimmingPage() {
             <SectionHeader
               eyebrow="Group & Individual Training"
               title="Technique, tempo, confidence"
-              description="Small-group clinics and private coaching refine stroke and conditioning — for beginners returning to water and lap swimmers refining pace."
+              description="Improve technique, conditioning, confidence, and efficiency through individual or small-group coaching.
+
+Whether you are returning to swimming or refining your stroke, sessions can be adapted to your experience and goals."
             />
           </ImageBlock>
         </Reveal>
@@ -90,9 +93,9 @@ export default function SwimmingPage() {
             imagePosition="left"
           >
             <SectionHeader
-              eyebrow="Recovery"
+              eyebrow="Post-Swim Recovery"
               title="Warm down, then stillness"
-              description="Post-swim spaces favour heat, hydration, and unhurried rest before you return to the city."
+              description="Complete your swimming session with time to warm down, hydrate, recover, and reset."
             />
           </ImageBlock>
         </Reveal>

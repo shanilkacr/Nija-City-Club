@@ -27,20 +27,8 @@ export const NAVIGATION: NavItem[] = [
   },
   {
     label: "Wellness",
-    href: "/wellness",
+    href: WELLNESS_SITE_URL,
     description: "Bridge to Nija Luxury Wellness",
-    children: [
-      {
-        label: "Visit Luxury Wellness",
-        href: WELLNESS_SITE_URL,
-        description: "Spa, Ayurveda, and treatments",
-      },
-      {
-        label: "About the Bridge",
-        href: "/wellness",
-        description: "How the two houses connect",
-      },
-    ],
   },
   {
     label: "Fitness",
@@ -106,28 +94,6 @@ export const NAVIGATION: NavItem[] = [
     label: "Event Space",
     href: "/event-space",
     description: "Gather with purpose",
-    children: [
-      {
-        label: "Meeting Spaces",
-        href: "/event-space#meetings",
-        description: "Boardrooms and breakouts",
-      },
-      {
-        label: "Treatment",
-        href: "/event-space#treatment",
-        description: "In-house wellness for guests",
-      },
-      {
-        label: "Events & Conferences",
-        href: "/event-space#events",
-        description: "Hosted gatherings",
-      },
-      {
-        label: "Private Dining",
-        href: "/event-space#dining",
-        description: "Tables for celebration",
-      },
-    ],
   },
   {
     label: "Membership",

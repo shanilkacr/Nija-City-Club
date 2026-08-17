@@ -17,7 +17,7 @@ export const SITE = {
 /** External Luxury Wellness site — override via env when domain is final. */
 export const WELLNESS_SITE_URL =
   process.env.NEXT_PUBLIC_WELLNESS_SITE_URL ??
-  "https://nialuxurywellness.example.com";
+  "https://nija-luxury-wellness.vercel.app/";
 
 export const CLUB_HOURS = [
   { day: "Monday – Sunday", hours: "7:00am – 10:00pm" },

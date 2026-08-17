@@ -23,29 +23,44 @@ export default function MembershipPage() {
       <AmbianceHero
         image="/images/membership/hero.jpg"
         alt="Membership welcome at the concierge desk"
-        title="Belong to the club"
-        description="Three tiers — shaped around how often you are in the city, and how you wish to use the house."
+        eyebrow="Belong to Something More Considered"
+        title="Private Club Membership in Colombo"
+        description="NIJA City Club membership is designed for people who want more from their city — more privacy, more wellbeing, better connections, and a place that brings the important parts of life together."
         cta={{ label: "Request invitation", href: "/contact" }}
         height="tall"
         priority
       />
 
-      <Section>
-        <Reveal>
-          <SectionHeader
-            align="center"
-            eyebrow="Tiers"
-            title="Choose how you arrive"
-            description="All memberships are by enquiry. Pricing is confirmed privately with concierge."
-            className="mb-14"
-          />
-        </Reveal>
-        <div className="grid gap-6 md:grid-cols-3">
-          {MEMBERSHIP_TIERS.map((tier, i) => (
-            <Reveal key={tier.id} delayMs={i * 90}>
-              <MembershipTierCard tier={tier} />
-            </Reveal>
-          ))}
+      <Section contained={false}>
+        <div className="mx-auto w-full max-w-content px-[var(--section-x)] py-12 md:py-16">
+          <Reveal>
+            <div className="mx-auto mb-14 flex max-w-3xl flex-col items-center text-center">
+              <p className="eyebrow text-center text-ink/50">
+                Tiers
+              </p>
+
+              <h2 className="mt-6 w-full text-center font-display text-4xl leading-tight text-ink md:text-5xl">
+                Membership Designed Around You
+              </h2>
+
+              <p className="mx-auto mt-6 w-full max-w-xl text-center text-base leading-8 text-ink/65">
+                NIJA offers membership options for different lifestyles, from
+                those who live in Colombo to people who move regularly between
+                cities and businesses looking for a private city base.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {MEMBERSHIP_TIERS.map((tier, i) => (
+              <Reveal key={tier.id} delayMs={i * 90}>
+                <MembershipTierCard tier={tier} />
+              </Reveal>
+            ))}
+          </div>
+
+          {/* Extra bottom spacing only */}
+          <div className="h-32 md:h-40" />
         </div>
       </Section>
 

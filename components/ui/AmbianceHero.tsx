@@ -18,9 +18,13 @@ export type AmbianceHeroProps = {
   title: string;
   description?: string;
   cta?: { label: string; href: string; external?: boolean };
+
   /** Full-bleed height. Default ~92vh Aman-style. */
   height?: "screen" | "tall" | "medium";
+
+  /** Hero content alignment */
   align?: "bottom" | "center";
+
   priority?: boolean;
   className?: string;
   children?: ReactNode;
@@ -33,8 +37,15 @@ const heightClass = {
 } as const;
 
 /**
- * Full-bleed ambiance hero — H1, supporting line, single CTA only.
- * Stays fixed until contract / header-fill animation completes, then scrolls away.
+ * Full-bleed ambiance hero.
+ *
+ * Bottom alignment:
+ * - Existing/default behavior
+ * - Content sits toward the bottom of the image
+ *
+ * Center alignment:
+ * - Content is centered horizontally and vertically
+ * - Eyebrow, title, description and CTA are centered
  */
 export function AmbianceHero({
   image,
@@ -57,6 +68,7 @@ export function AmbianceHero({
     const spacer = spacerRef.current;
     const stage = stageRef.current;
     const frame = frameRef.current;
+
     if (!spacer || !stage || !frame) return;
 
     const reduceMotion = window.matchMedia(
@@ -65,6 +77,7 @@ export function AmbianceHero({
 
     const syncSpacer = () => {
       const stageH = window.innerHeight;
+
       spacer.style.height = `${stageH + HERO_SCROLL_DISTANCE}px`;
       stage.style.height = `${stageH}px`;
     };
@@ -78,7 +91,6 @@ export function AmbianceHero({
     };
 
     const release = () => {
-      // Park at the end of the spacer so continued scroll carries the hero away
       stage.style.position = "absolute";
       stage.style.top = "auto";
       stage.style.right = "0";
@@ -101,25 +113,36 @@ export function AmbianceHero({
       }
 
       const p = Math.min(progress, 1);
+
       const scale = heroScaleFromProgress(p);
+
       const y = heroParallaxYFromProgress(
         p,
         window.innerHeight,
         frame.offsetHeight,
       );
+
       frame.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
     };
 
     syncSpacer();
     apply(0);
+
     return subscribeHeroScroll(apply);
   }, []);
+
+  const isCentered = align === "center";
 
   return (
     <section
       ref={spacerRef}
-      className={cn("relative w-full bg-cream", className)}
-      style={{ height: `calc(100svh + ${HERO_SCROLL_DISTANCE}px)` }}
+      className={cn(
+        "relative w-full bg-cream",
+        className,
+      )}
+      style={{
+        height: `calc(100svh + ${HERO_SCROLL_DISTANCE}px)`,
+      }}
     >
       <div
         ref={stageRef}
@@ -130,9 +153,12 @@ export function AmbianceHero({
           className={cn(
             "relative flex w-full origin-center overflow-hidden will-change-transform",
             heightClass[height],
-            align === "center" ? "items-center" : "items-end",
+
+            // Vertical alignment
+            isCentered ? "items-center" : "items-end",
           )}
         >
+          {/* Hero image */}
           <Image
             src={image}
             alt={alt}
@@ -141,37 +167,101 @@ export function AmbianceHero({
             sizes="100vw"
             className="object-cover object-center"
           />
-          {/* Flat scrim — no gradients */}
+
+          {/* Dark scrim */}
           <div className="absolute inset-0 bg-black/35" />
-          <div className="relative mx-auto w-full max-w-content px-[var(--section-x)] pb-16 md:pb-24">
-            {eyebrow ? (
-              <p className="eyebrow text-white/55">{eyebrow}</p>
-            ) : null}
-            <h1
+
+          {/* Content */}
+          <div
+            className={cn(
+              "relative mx-auto w-full max-w-content px-[var(--section-x)]",
+
+              // Bottom aligned hero
+              !isCentered && "pb-16 md:pb-24",
+
+              // Centered hero
+              isCentered &&
+              "flex h-full items-center justify-center text-center",
+            )}
+          >
+            <div
               className={cn(
-                "max-w-xl font-display text-(length:--text-hero) leading-[1.08] text-white",
-                eyebrow && "mt-3",
+                "w-full",
+
+                // Bottom aligned content width
+                !isCentered && "max-w-2xl",
+
+                // Centered content width
+                isCentered && "mx-auto max-w-3xl",
               )}
             >
-              {title}
-            </h1>
-            {description ? (
-              <p className="mt-5 max-w-md text-[13px] leading-relaxed text-white/80">
-                {description}
-              </p>
-            ) : null}
-            {cta ? (
-              <div className="mt-8">
-                <Button
-                  href={cta.href}
-                  external={cta.external}
-                  variant="outlineLight"
+              {/* Eyebrow */}
+              {eyebrow ? (
+                <p
+                  className={cn(
+                    "eyebrow text-white/55",
+                    isCentered && "text-center",
+                  )}
                 >
-                  {cta.label}
-                </Button>
-              </div>
-            ) : null}
-            {children}
+                  {eyebrow}
+                </p>
+              ) : null}
+
+              {/* Title */}
+              <h1
+                className={cn(
+                  "font-display text-(length:--text-hero) leading-[1.08] text-white",
+
+                  eyebrow && "mt-3",
+
+                  // Bottom hero
+                  !isCentered && "max-w-xl",
+
+                  // Centered hero
+                  isCentered && "mx-auto max-w-4xl text-center",
+                )}
+              >
+                {title}
+              </h1>
+
+              {/* Description */}
+              {description ? (
+                <p
+                  className={cn(
+                    "mt-5 text-[13px] leading-relaxed text-white/80",
+
+                    // Bottom hero
+                    !isCentered && "max-w-md",
+
+                    // Centered hero
+                    isCentered &&
+                    "mx-auto max-w-2xl text-center",
+                  )}
+                >
+                  {description}
+                </p>
+              ) : null}
+
+              {/* CTA */}
+              {cta ? (
+                <div
+                  className={cn(
+                    "mt-8",
+                    isCentered && "flex justify-center",
+                  )}
+                >
+                  <Button
+                    href={cta.href}
+                    external={cta.external}
+                    variant="outlineLight"
+                  >
+                    {cta.label}
+                  </Button>
+                </div>
+              ) : null}
+
+              {children}
+            </div>
           </div>
         </div>
       </div>

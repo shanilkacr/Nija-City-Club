@@ -47,7 +47,7 @@ export default function HomePage() {
 
       <ClubHours />
 
-      <section className="relative min-h-[48vh] w-full overflow-hidden bg-sand md:min-h-[56vh]">
+      <section className="relative min-h-[40vh] w-full overflow-hidden bg-sand sm:min-h-[48vh] md:min-h-[56vh]">
         <Image
           src={HOME_VISIT_IMAGE.image}
           alt={HOME_VISIT_IMAGE.alt}

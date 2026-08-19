@@ -26,18 +26,27 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          el.classList.add("is-visible");
-          observer.unobserve(el);
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-    );
+    // Make visible immediately on mobile for better UX
+    const isMobile = window.innerWidth < 768;
 
-    observer.observe(el);
-    return () => observer.disconnect();
+    // Always make visible immediately
+    el.classList.add("is-visible");
+
+    if (!isMobile) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            el.classList.add("is-visible");
+            observer.unobserve(el);
+          }
+        },
+        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+      );
+
+      observer.observe(el);
+
+      return () => observer.disconnect();
+    }
   }, []);
 
   const variantClass =

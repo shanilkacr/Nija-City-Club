@@ -47,9 +47,9 @@ export function ImageSnapStrip({ items, className }: ImageSnapStripProps) {
 
   return (
     <section className={cn("overflow-hidden bg-stone py-[var(--section-y)]", className)}>
-      <div className="mb-8 px-[var(--section-x)] md:mb-10">
+      <div className="mb-6 md:mb-8 px-[var(--section-x)]">
         <p className="eyebrow text-ink/45">Inside the club</p>
-        <h2 className="mt-3 font-display text-(length:--text-h2) text-ink">
+        <h2 className="mt-2 md:mt-3 font-display text-(length:--text-h2) text-ink">
           A day in motion
         </h2>
       </div>
@@ -57,13 +57,13 @@ export function ImageSnapStrip({ items, className }: ImageSnapStripProps) {
       <div className="relative overflow-hidden">
         <div
           ref={trackRef}
-          className="flex w-max gap-3 will-change-transform md:gap-4"
+          className="flex w-max gap-2 will-change-transform sm:gap-3 md:gap-4"
         >
           {loop.map((item, i) => (
             <Link
               key={`${item.id}-${i}`}
               href={item.href}
-              className="group relative aspect-[3/4] w-[68vw] shrink-0 overflow-hidden bg-sand sm:w-[42vw] md:w-[28vw] lg:w-[22vw]"
+              className="group relative aspect-[3/4] w-[60vw] shrink-0 overflow-hidden bg-sand xs:w-[50vw] sm:w-[42vw] md:w-[28vw] lg:w-[22vw]"
               tabIndex={i >= items.length ? -1 : undefined}
               aria-hidden={i >= items.length}
             >
@@ -71,10 +71,10 @@ export function ImageSnapStrip({ items, className }: ImageSnapStripProps) {
                 src={item.image}
                 alt={item.caption}
                 fill
-                sizes="(min-width: 1024px) 22vw, (min-width: 768px) 28vw, 68vw"
+                sizes="(min-width: 1024px) 22vw, (min-width: 768px) 28vw, (min-width: 640px) 42vw, 60vw"
                 className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
               />
-              <span className="absolute bottom-5 left-5 font-display text-lg tracking-wide text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]">
+              <span className="absolute bottom-3 left-3 md:bottom-5 md:left-5 font-display text-base md:text-lg tracking-wide text-white drop-shadow-[0_1px_8px_rgba(0,0,0,0.55)]">
                 {item.caption}
               </span>
             </Link>

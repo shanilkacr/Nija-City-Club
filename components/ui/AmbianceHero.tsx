@@ -31,9 +31,9 @@ export type AmbianceHeroProps = {
 };
 
 const heightClass = {
-  screen: "h-[92vh] min-h-[560px]",
-  tall: "h-[78vh] min-h-[480px]",
-  medium: "h-[56vh] min-h-[360px]",
+  screen: "h-[70vh] min-h-[420px] sm:min-h-[480px] md:min-h-[550px]",
+  tall: "h-[60vh] min-h-[360px] sm:min-h-[420px] md:min-h-[480px]",
+  medium: "h-[50vh] min-h-[280px] sm:min-h-[320px] md:min-h-[360px]",
 } as const;
 
 /**
@@ -75,60 +75,107 @@ export function AmbianceHero({
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const syncSpacer = () => {
-      const stageH = window.innerHeight;
+    // Pin/parallax is a desktop-only flourish — below `md` the hero just
+    // flows as a normal static section (no fixed pin, no scroll spacer).
+    const desktopQuery = window.matchMedia("(min-width: 768px)");
 
-      spacer.style.height = `${stageH + HERO_SCROLL_DISTANCE}px`;
-      stage.style.height = `${stageH}px`;
+    let stopScroll: (() => void) | undefined;
+
+    const teardownScroll = () => {
+      stopScroll?.();
+      stopScroll = undefined;
     };
 
-    const pin = () => {
-      stage.style.position = "fixed";
-      stage.style.top = "0";
-      stage.style.right = "0";
-      stage.style.bottom = "auto";
-      stage.style.left = "0";
-    };
-
-    const release = () => {
-      stage.style.position = "absolute";
+    const setupStatic = () => {
+      teardownScroll();
+      spacer.style.height = "auto";
+      stage.style.position = "relative";
+      stage.style.height = "auto";
       stage.style.top = "auto";
-      stage.style.right = "0";
-      stage.style.bottom = "0";
-      stage.style.left = "0";
+      stage.style.right = "auto";
+      stage.style.bottom = "auto";
+      stage.style.left = "auto";
+      stage.style.zIndex = "auto";
+      stage.style.pointerEvents = "auto";
+      frame.style.transform = "";
     };
 
-    const apply = (progress: number) => {
+    const setupDesktop = () => {
+      const syncSpacer = () => {
+        const stageH = window.innerHeight;
+
+        spacer.style.height = `${stageH + HERO_SCROLL_DISTANCE}px`;
+        stage.style.height = `${stageH}px`;
+      };
+
+      const pin = () => {
+        stage.style.position = "fixed";
+        stage.style.top = "0";
+        stage.style.right = "0";
+        stage.style.bottom = "auto";
+        stage.style.left = "0";
+        stage.style.zIndex = "10";
+        stage.style.pointerEvents = "auto";
+      };
+
+      const release = () => {
+        stage.style.position = "absolute";
+        stage.style.top = "auto";
+        stage.style.right = "0";
+        stage.style.bottom = "0";
+        stage.style.left = "0";
+        stage.style.zIndex = "-1";
+        stage.style.pointerEvents = "none";
+      };
+
+      const apply = (progress: number) => {
+        syncSpacer();
+
+        if (progress < 1) {
+          pin();
+        } else {
+          release();
+        }
+
+        if (reduceMotion) {
+          frame.style.transform = "";
+          return;
+        }
+
+        const p = Math.min(progress, 1);
+        const scale = heroScaleFromProgress(p);
+        const y = heroParallaxYFromProgress(
+          p,
+          window.innerHeight,
+          frame.offsetHeight,
+        );
+
+        frame.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
+      };
+
       syncSpacer();
-
-      if (progress < 1) {
-        pin();
-      } else {
-        release();
-      }
-
-      if (reduceMotion) {
-        frame.style.transform = "";
-        return;
-      }
-
-      const p = Math.min(progress, 1);
-
-      const scale = heroScaleFromProgress(p);
-
-      const y = heroParallaxYFromProgress(
-        p,
-        window.innerHeight,
-        frame.offsetHeight,
-      );
-
-      frame.style.transform = `translate3d(0, ${y}px, 0) scale(${scale})`;
+      apply(0);
+      stopScroll = subscribeHeroScroll(apply);
     };
 
-    syncSpacer();
-    apply(0);
+    const setup = (isDesktop: boolean) => {
+      teardownScroll();
+      if (isDesktop) {
+        setupDesktop();
+      } else {
+        setupStatic();
+      }
+    };
 
-    return subscribeHeroScroll(apply);
+    setup(desktopQuery.matches);
+
+    const onChange = (e: MediaQueryListEvent) => setup(e.matches);
+    desktopQuery.addEventListener("change", onChange);
+
+    return () => {
+      desktopQuery.removeEventListener("change", onChange);
+      teardownScroll();
+    };
   }, []);
 
   const isCentered = align === "center";
@@ -146,7 +193,7 @@ export function AmbianceHero({
     >
       <div
         ref={stageRef}
-        className="fixed inset-x-0 top-0 z-10 flex h-svh w-full items-start justify-center overflow-hidden bg-cream"
+        className="fixed inset-x-0 top-0 flex h-svh w-full items-start justify-center overflow-hidden bg-cream"
       >
         <div
           ref={frameRef}
@@ -177,11 +224,11 @@ export function AmbianceHero({
               "relative mx-auto w-full max-w-content px-[var(--section-x)]",
 
               // Bottom aligned hero
-              !isCentered && "pb-16 md:pb-24",
+              !isCentered && "pb-6 sm:pb-8 md:pb-12 lg:pb-16",
 
               // Centered hero
               isCentered &&
-              "flex h-full items-center justify-center text-center",
+              "flex h-full items-center justify-center text-center px-4 sm:px-[var(--section-x)]",
             )}
           >
             <div
@@ -212,7 +259,7 @@ export function AmbianceHero({
                 className={cn(
                   "font-display text-(length:--text-hero) leading-[1.08] text-white",
 
-                  eyebrow && "mt-3",
+                  eyebrow && "mt-2 sm:mt-3",
 
                   // Bottom hero
                   !isCentered && "max-w-xl",
@@ -228,7 +275,7 @@ export function AmbianceHero({
               {description ? (
                 <p
                   className={cn(
-                    "mt-5 text-[13px] leading-relaxed text-white/80",
+                    "mt-4 sm:mt-5 text-[13px] leading-relaxed text-white/80",
 
                     // Bottom hero
                     !isCentered && "max-w-md",
@@ -246,7 +293,7 @@ export function AmbianceHero({
               {cta ? (
                 <div
                   className={cn(
-                    "mt-8",
+                    "mt-6 sm:mt-8",
                     isCentered && "flex justify-center",
                   )}
                 >

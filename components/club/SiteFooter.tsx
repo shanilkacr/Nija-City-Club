@@ -9,7 +9,7 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-line bg-cream">
-      <div className="mx-auto grid max-w-content gap-12 px-[var(--section-x)] py-14 md:grid-cols-12 md:gap-8">
+      <div className="mx-auto grid max-w-content gap-8 px-[var(--section-x)] py-10 md:gap-8 md:py-14 md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="font-display text-xl tracking-[0.1em]">{SITE.brand}</p>
           <p className="mt-1 text-[10px] tracking-[0.28em] text-ink/50 uppercase">
@@ -64,7 +64,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-line px-[var(--section-x)] py-5 text-center text-[11px] text-ink/40">
+      <div className="border-t border-line px-[var(--section-x)] py-4 md:py-5 text-center text-[11px] text-ink/40">
         &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
       </div>
     </footer>

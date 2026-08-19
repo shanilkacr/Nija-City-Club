@@ -28,10 +28,10 @@ export function ClubIntro() {
   return (
     <section className="mx-auto max-w-content px-[var(--section-x)] py-[var(--section-y)]">
       <Reveal>
-        <div className="mx-auto max-w-2xl space-y-5 text-center text-[13px] leading-[1.85] text-ink/70">
+        <div className="mx-auto max-w-2xl space-y-4 md:space-y-5 text-center text-[12px] sm:text-[13px] leading-[1.85] text-ink md:text-ink/70">
           <p>{CLUB_INTRO.locationLine}</p>
           <p>{CLUB_INTRO.prestige}</p>
-          <p className="font-display text-lg leading-snug text-ink md:text-xl">
+          <p className="font-display text-base sm:text-lg md:text-xl leading-snug text-ink">
             {CLUB_INTRO.oasis}
           </p>
         </div>
@@ -71,7 +71,7 @@ export function ClubAmenities() {
 
   return (
     <section ref={ref} className="overflow-hidden bg-white">
-      <div className="mx-auto grid w-full max-w-content items-center gap-8 px-[var(--section-x)] lg:grid-cols-2 lg:gap-14">
+      <div className="mx-auto grid w-full max-w-content items-center gap-6 px-[var(--section-x)] md:gap-8 lg:grid-cols-2 lg:gap-14">
         <div className={cn(editorialImageColumnClass, "lg:order-2")}>
           <div data-amenities-image className={editorialImageFrameClass}>
             <Image
@@ -106,12 +106,12 @@ export function ClubRules() {
           How we keep the house quiet
         </h2>
       </Reveal>
-      <ul className="mt-10 grid gap-0 border-t border-line md:grid-cols-2">
+      <ul className="mt-8 grid gap-0 border-t border-line md:mt-10 md:grid-cols-2">
         {CLUB_RULES.map((rule, i) => (
           <Reveal key={rule.id} delayMs={i * 60}>
             <li
               className={cn(
-                "border-b border-line py-6 md:px-6 md:py-8",
+                "border-b border-line py-5 md:px-6 md:py-8",
                 i % 2 === 0 && "md:border-r",
               )}
             >
@@ -132,8 +132,8 @@ export function ClubRules() {
 export function ClubHours() {
   return (
     <section className="border-t border-line bg-cream">
-      <div className="mx-auto grid max-w-content gap-12 px-[var(--section-x)] py-[var(--section-y)] lg:grid-cols-12">
-        <Reveal className="lg:col-span-5">
+      <div className="mx-auto grid max-w-content gap-8 px-[var(--section-x)] py-[var(--section-y)] md:gap-12 md:grid-cols-[1fr_1fr_1fr]">
+        <Reveal>
           <p className="eyebrow text-ink/45">Opening Hours</p>
           <h2 className="mt-3 font-display text-(length:--text-h2)">
             When the doors are open
@@ -146,7 +146,7 @@ export function ClubHours() {
           </p>
         </Reveal>
 
-        <Reveal className="lg:col-span-4" delayMs={60}>
+        <Reveal delayMs={60}>
           <p className="mb-4 text-[11px] tracking-[0.16em] text-ink/45 uppercase">
             Club
           </p>
@@ -163,7 +163,7 @@ export function ClubHours() {
           </ul>
         </Reveal>
 
-        <Reveal className="lg:col-span-3" delayMs={100}>
+        <Reveal delayMs={100}>
           <p className="mb-4 text-[11px] tracking-[0.16em] text-ink/45 uppercase">
             Spa & Fitness
           </p>
@@ -187,7 +187,7 @@ export function EditorialImageSplit({ item }: { item: EditorialSplit }) {
 
   return (
     <section className="overflow-hidden">
-      <div className="mx-auto grid w-full max-w-content items-center gap-8 px-[var(--section-x)] lg:grid-cols-2 lg:gap-14">
+      <div className="mx-auto grid w-full max-w-content items-center gap-6 px-[var(--section-x)] md:gap-8 lg:grid-cols-2 lg:gap-14">
         <div
           className={cn(
             editorialImageColumnClass,

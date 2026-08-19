@@ -294,13 +294,13 @@ export function MegaMenu() {
 
       {mobileOpen ? (
         <div className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-line bg-cream lg:hidden">
-          <div className="space-y-1 px-[var(--section-x)] py-6">
+          <div className="space-y-1 px-[var(--section-x)] py-4 sm:py-6">
             {NAVIGATION.map((item) => (
-              <div key={item.label} className="border-b border-line py-4">
+              <div key={item.label} className="border-b border-line py-3 sm:py-4">
                 <NavLink
                   href={item.href}
                   onClick={closeAll}
-                  className="font-display text-xl"
+                  className="font-display text-lg sm:text-xl"
                 >
                   {item.label}
                 </NavLink>
@@ -321,7 +321,7 @@ export function MegaMenu() {
                 ) : null}
               </div>
             ))}
-            <div className="pt-6">
+            <div className="pt-4 sm:pt-6">
               <Button href="/contact" variant="solid" className="w-full">
                 Contact Concierge
               </Button>

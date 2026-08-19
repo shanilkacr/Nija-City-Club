@@ -32,32 +32,51 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) return;
 
-    const ctx = gsap.context(() => {
-      if (panels.length === 1) return;
+    // The pinned scroll-scrubbed accordion is a desktop (two-column) effect.
+    // Below `lg` it scroll-jacks the page and pins for many screen-heights,
+    // so on smaller screens the panels behave as a plain, tap-to-open
+    // accordion in normal document flow instead.
+    const desktopQuery = window.matchMedia("(min-width: 1024px)");
+    let ctx: gsap.Context | undefined;
 
-      ScrollTrigger.create({
-        trigger: root,
-        start: "top top",
-        end: () => `+=${window.innerHeight * (panels.length - 1) * 0.5}`,
-        pin: pin,
-        anticipatePin: 1,
-        invalidateOnRefresh: true,
-        snap: {
-          snapTo: 1 / (panels.length - 1),
-          duration: { min: 0.15, max: 0.45 },
-          delay: 0.05,
-        },
-        onUpdate: (self) => {
-          const index = Math.min(
-            panels.length - 1,
-            Math.round(self.progress * (panels.length - 1)),
-          );
-          setActive((prev) => (prev === index ? prev : index));
-        },
-      });
-    }, root);
+    const setup = (isDesktop: boolean) => {
+      ctx?.revert();
+      ctx = undefined;
+      if (!isDesktop || panels.length === 1) return;
 
-    return () => ctx.revert();
+      ctx = gsap.context(() => {
+        ScrollTrigger.create({
+          trigger: root,
+          start: "top top",
+          end: () => `+=${window.innerHeight * (panels.length - 1) * 0.5}`,
+          pin: pin,
+          anticipatePin: 1,
+          invalidateOnRefresh: true,
+          snap: {
+            snapTo: 1 / (panels.length - 1),
+            duration: { min: 0.15, max: 0.45 },
+            delay: 0.05,
+          },
+          onUpdate: (self) => {
+            const index = Math.min(
+              panels.length - 1,
+              Math.round(self.progress * (panels.length - 1)),
+            );
+            setActive((prev) => (prev === index ? prev : index));
+          },
+        });
+      }, root);
+    };
+
+    setup(desktopQuery.matches);
+
+    const onChange = (e: MediaQueryListEvent) => setup(e.matches);
+    desktopQuery.addEventListener("change", onChange);
+
+    return () => {
+      desktopQuery.removeEventListener("change", onChange);
+      ctx?.revert();
+    };
   }, [panels.length]);
 
   return (
@@ -67,17 +86,17 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
     >
       <div
         ref={pinRef}
-        className="flex h-screen flex-col bg-cream"
+        className="flex flex-col bg-cream lg:h-screen lg:min-h-screen"
       >
-        <div className="mx-auto flex h-full w-full max-w-content flex-col px-[var(--section-x)] py-16 md:py-20 lg:py-24">
-          <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_minmax(10rem,40%)] items-stretch gap-6 lg:grid-cols-2 lg:grid-rows-1 lg:gap-16">
+        <div className="mx-auto flex h-full w-full max-w-content flex-col px-[var(--section-x)] py-12 md:py-16 lg:py-24">
+          <div className="grid min-h-0 flex-1 items-stretch gap-6 md:gap-8 lg:grid-cols-2 lg:grid-rows-1 lg:gap-16">
             {/* Left — title + facility accordion */}
             <div className="flex min-h-0 flex-col lg:self-stretch">
               <h2 className="shrink-0 font-display text-(length:--text-h2)">
                 Inside the club
               </h2>
 
-              <div className="mt-8">
+              <div className="mt-6 md:mt-8 overflow-y-auto">
                 <ul>
                   {panels.map((panel, i) => {
                     const isActive = i === active;
@@ -90,7 +109,7 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
                           type="button"
                           onClick={() => setActive(i)}
                           className={cn(
-                            "flex w-full items-baseline justify-between gap-4 py-3.5 text-left transition-colors",
+                            "flex w-full items-baseline justify-between gap-4 py-3 md:py-3.5 text-left transition-colors",
                             isActive
                               ? "text-ink"
                               : "text-ink/35 hover:text-ink/60",
@@ -111,7 +130,16 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
                           )}
                         >
                           <div className="overflow-hidden">
-                            <div className="pb-5">
+                            <div className="pb-4 md:pb-5">
+                              <div className="relative mb-4 aspect-[4/3] w-full overflow-hidden bg-sand sm:aspect-[16/9] lg:hidden">
+                                <Image
+                                  src={panel.image}
+                                  alt={panel.label}
+                                  fill
+                                  sizes="100vw"
+                                  className="object-cover"
+                                />
+                              </div>
                               <p className="max-w-sm text-[13px] leading-relaxed text-ink/65">
                                 {panel.blurb}
                               </p>
@@ -131,7 +159,7 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
               </div>
             </div>
 
-            {/* Right — imagery */}
+            {/* Right — imagery (desktop only; mobile shows the image inline per-panel) */}
             <div className="relative hidden min-h-0 overflow-hidden bg-sand lg:block">
               {panels.map((panel, i) => (
                 <div
@@ -148,27 +176,6 @@ export function ScrollFacilities({ panels, className }: ScrollFacilitiesProps) {
                     fill
                     priority={i === 0}
                     sizes="(min-width: 1024px) 40vw, 100vw"
-                    className="object-cover"
-                  />
-                </div>
-              ))}
-            </div>
-
-            {/* Mobile imagery */}
-            <div className="relative min-h-0 overflow-hidden bg-sand lg:hidden">
-              {panels.map((panel, i) => (
-                <div
-                  key={panel.id}
-                  className={cn(
-                    "absolute inset-0 transition-opacity duration-700",
-                    i === active ? "opacity-100" : "opacity-0",
-                  )}
-                >
-                  <Image
-                    src={panel.image}
-                    alt={panel.label}
-                    fill
-                    sizes="100vw"
                     className="object-cover"
                   />
                 </div>

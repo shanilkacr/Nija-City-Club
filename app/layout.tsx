@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, Jost, Montserrat } from "next/font/google";
 import { MegaMenu } from "@/components/club/MegaMenu";
 import { SiteFooter } from "@/components/club/SiteFooter";
@@ -23,6 +23,12 @@ const logo = Montserrat({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+};
 
 export const metadata: Metadata = {
   title: {

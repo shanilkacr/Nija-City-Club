@@ -127,6 +127,7 @@ Catering, hospitality, and event coordination can be arranged through the Club."
         description="Share dates and headcount — concierge will propose rooms and menus within one business day."
         cta={{ label: "Enquire", href: "/contact" }}
         secondaryCta={{ label: "Café", href: "/cafe" }}
+        mobileInlineButtons
       />
     </>
   );

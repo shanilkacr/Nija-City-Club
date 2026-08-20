@@ -128,7 +128,7 @@ Sessions can focus on strength, mobility, conditioning, athletic performance, or
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/recovery1.jpg"
+            image="/images/fitness/recovery.jpg"
             alt="Recovery refreshment ritual"
             imagePosition="right"
           >

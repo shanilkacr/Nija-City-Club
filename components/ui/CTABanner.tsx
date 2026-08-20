@@ -10,6 +10,9 @@ export type CTABannerProps = {
   secondaryCta?: { label: string; href: string };
   tone?: "cream" | "stone" | "ink";
   className?: string;
+  /** Keep the two buttons side by side on mobile instead of stacking. Only
+   * safe for short labels — defaults to the stacked, full-width behavior. */
+  mobileInlineButtons?: boolean;
 };
 
 /**
@@ -23,6 +26,7 @@ export function CTABanner({
   secondaryCta,
   tone = "ink",
   className,
+  mobileInlineButtons = false,
 }: CTABannerProps) {
   const inverted = tone === "ink";
 
@@ -52,12 +56,17 @@ export function CTABanner({
             {description}
           </p>
         ) : null}
-        <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row flex-wrap items-center justify-center gap-3">
+        <div
+          className={cn(
+            "mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3",
+            mobileInlineButtons ? "flex-row" : "flex-col sm:flex-row",
+          )}
+        >
           <Button
             href={cta.href}
             external={cta.external}
             variant={inverted ? "outlineLight" : "solid"}
-            className="w-full sm:w-auto"
+            className={mobileInlineButtons ? undefined : "w-full sm:w-auto"}
           >
             {cta.label}
           </Button>
@@ -65,7 +74,7 @@ export function CTABanner({
             <Button
               href={secondaryCta.href}
               variant={inverted ? "outlineLight" : "outline"}
-              className="w-full sm:w-auto"
+              className={mobileInlineButtons ? undefined : "w-full sm:w-auto"}
             >
               {secondaryCta.label}
             </Button>

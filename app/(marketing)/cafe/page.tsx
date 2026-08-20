@@ -112,6 +112,7 @@ export default function CafePage() {
           href: "/event-space#dining",
         }}
         tone="stone"
+        mobileInlineButtons
       />
     </>
   );

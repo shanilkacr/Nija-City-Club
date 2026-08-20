@@ -61,7 +61,7 @@ export const FACILITY_PANELS: FacilityPanel[] = [
     id: "recovery",
     label: "Recovery",
     href: "/fitness#recovery",
-    image: "/images/fitness/recovery1.jpg",
+    image: "/images/fitness/recovery.jpg",
     blurb: "Quiet rooms to restore after training.",
     points: [],
   },

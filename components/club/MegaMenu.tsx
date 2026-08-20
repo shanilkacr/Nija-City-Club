@@ -12,6 +12,9 @@ import {
   subscribeHeroScroll,
 } from "@/lib/hero-scroll";
 
+/** Mobile card menu: primary (bold) links vs. secondary (muted) utility links. */
+const MOBILE_SECONDARY_LABELS = new Set(["Membership", "Contact"]);
+
 function isExternalHref(href: string) {
   return href.startsWith("http://") || href.startsWith("https://");
 }
@@ -21,11 +24,15 @@ function NavLink({
   className,
   children,
   onClick,
+  "aria-expanded": ariaExpanded,
+  "aria-controls": ariaControls,
 }: {
   href: string;
   className?: string;
   children: ReactNode;
   onClick?: () => void;
+  "aria-expanded"?: boolean;
+  "aria-controls"?: string;
 }) {
   if (isExternalHref(href)) {
     return (
@@ -35,13 +42,21 @@ function NavLink({
         target="_blank"
         rel="noopener noreferrer"
         onClick={onClick}
+        aria-expanded={ariaExpanded}
+        aria-controls={ariaControls}
       >
         {children}
       </a>
     );
   }
   return (
-    <Link href={href} className={className} onClick={onClick}>
+    <Link
+      href={href}
+      className={className}
+      onClick={onClick}
+      aria-expanded={ariaExpanded}
+      aria-controls={ariaControls}
+    >
       {children}
     </Link>
   );
@@ -201,37 +216,20 @@ export function MegaMenu() {
                   setOpenId(hasChildren ? item.label : null)
                 }
               >
-                {hasChildren ? (
-                  <button
-                    type="button"
-                    className={cn(
-                      "px-2.5 py-2 text-[11px] tracking-[0.14em] uppercase transition-colors",
-                      filled
-                        ? "text-ink/80 hover:text-ink"
-                        : "text-white/80 hover:text-white",
-                      isOpen && (filled ? "text-ink" : "text-white"),
-                    )}
-                    aria-expanded={isOpen}
-                    aria-controls={menuId}
-                    onClick={() =>
-                      setOpenId(isOpen ? null : item.label)
-                    }
-                  >
-                    {item.label}
-                  </button>
-                ) : (
-                  <NavLink
-                    href={item.href}
-                    className={cn(
-                      "px-2.5 py-2 text-[11px] tracking-[0.14em] uppercase transition-colors",
-                      filled
-                        ? "text-ink/80 hover:text-ink"
-                        : "text-white/80 hover:text-white",
-                    )}
-                  >
-                    {item.label}
-                  </NavLink>
-                )}
+                <NavLink
+                  href={item.href}
+                  className={cn(
+                    "px-2.5 py-2 text-[11px] tracking-[0.14em] uppercase transition-colors",
+                    filled
+                      ? "text-ink/80 hover:text-ink"
+                      : "text-white/80 hover:text-white",
+                    hasChildren && isOpen && (filled ? "text-ink" : "text-white"),
+                  )}
+                  aria-expanded={hasChildren ? isOpen : undefined}
+                  aria-controls={hasChildren ? menuId : undefined}
+                >
+                  {item.label}
+                </NavLink>
               </div>
             );
           })}
@@ -254,27 +252,21 @@ export function MegaMenu() {
             )}
             aria-label={mobileOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileOpen}
+            aria-controls={`${menuId}-mobile`}
             onClick={() => setMobileOpen((v) => !v)}
           >
             <span className="sr-only">Menu</span>
             <span className="flex flex-col gap-1.5">
               <span
                 className={cn(
-                  "block h-px w-5 transition-transform",
+                  "block h-px w-5 transition-transform duration-300",
                   filled ? "bg-ink" : "bg-white",
                   mobileOpen && "translate-y-[3.5px] rotate-45",
                 )}
               />
               <span
                 className={cn(
-                  "block h-px w-5 transition-opacity",
-                  filled ? "bg-ink" : "bg-white",
-                  mobileOpen && "opacity-0",
-                )}
-              />
-              <span
-                className={cn(
-                  "block h-px w-5 transition-transform",
+                  "block h-px w-5 transition-transform duration-300",
                   filled ? "bg-ink" : "bg-white",
                   mobileOpen && "-translate-y-[3.5px] -rotate-45",
                 )}
@@ -292,43 +284,99 @@ export function MegaMenu() {
         )}
       </div>
 
-      {mobileOpen ? (
-        <div className="max-h-[calc(100vh-4.5rem)] overflow-y-auto border-t border-line bg-cream lg:hidden">
-          <div className="space-y-1 px-[var(--section-x)] py-4 sm:py-6">
-            {NAVIGATION.map((item) => (
-              <div key={item.label} className="border-b border-line py-3 sm:py-4">
-                <NavLink
-                  href={item.href}
-                  onClick={closeAll}
-                  className="font-display text-lg sm:text-xl"
-                >
-                  {item.label}
-                </NavLink>
-                {item.children?.length ? (
-                  <ul className="mt-3 space-y-2 pl-1">
-                    {item.children.map((child) => (
-                      <li key={`${child.href}-${child.label}`}>
-                        <NavLink
-                          href={child.href}
-                          onClick={closeAll}
-                          className="text-[12px] text-ink/65"
-                        >
-                          {child.label}
-                        </NavLink>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </div>
-            ))}
-            <div className="pt-4 sm:pt-6">
-              <Button href="/contact" variant="solid" className="w-full">
-                Contact Concierge
-              </Button>
-            </div>
-          </div>
+      {/* Mobile menu: scrim */}
+      <div
+        className={cn(
+          "fixed inset-0 z-30 bg-ink/55 backdrop-blur-[2px] transition-opacity duration-300 lg:hidden",
+          mobileOpen ? "opacity-100" : "pointer-events-none opacity-0",
+        )}
+        aria-hidden="true"
+        onClick={() => setMobileOpen(false)}
+      />
+
+      {/* Mobile menu: floating card */}
+      <div
+        id={`${menuId}-mobile`}
+        className={cn(
+          "fixed inset-x-4 top-4 z-40 max-h-[calc(100svh-2rem)] overflow-y-auto rounded-2xl bg-cream shadow-[0_24px_64px_rgba(33,29,24,0.25)] transition-all duration-300 ease-out lg:hidden",
+          mobileOpen
+            ? "translate-y-0 opacity-100"
+            : "pointer-events-none -translate-y-3 opacity-0",
+        )}
+      >
+        <div className="flex items-center justify-between px-6 pt-6">
+          <Link
+            href="/"
+            onClick={closeAll}
+            aria-label={SITE.name}
+            className="shrink-0"
+          >
+            <Image
+              src="/images/brand/logo.png"
+              alt={SITE.name}
+              width={498}
+              height={501}
+              className="h-10 w-auto object-contain"
+            />
+          </Link>
+          <button
+            type="button"
+            onClick={() => setMobileOpen(false)}
+            aria-label="Close menu"
+            className="-mt-1 -mr-2 flex h-10 w-10 items-center justify-center"
+          >
+            <span className="relative block h-4 w-4">
+              <span className="absolute top-1/2 left-0 h-px w-4 -translate-y-1/2 rotate-45 bg-ink/70" />
+              <span className="absolute top-1/2 left-0 h-px w-4 -translate-y-1/2 -rotate-45 bg-ink/70" />
+            </span>
+          </button>
         </div>
-      ) : null}
+
+        <nav className="mt-8 flex flex-col px-6" aria-label="Mobile primary">
+          {NAVIGATION.filter(
+            (item) => !MOBILE_SECONDARY_LABELS.has(item.label),
+          ).map((item) => (
+            <NavLink
+              key={item.label}
+              href={item.href}
+              onClick={closeAll}
+              className="py-2 font-display text-2xl leading-tight text-ink"
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </nav>
+
+        <div className="mt-6 flex flex-col px-6 pb-6">
+          {NAVIGATION.filter((item) =>
+            MOBILE_SECONDARY_LABELS.has(item.label),
+          ).map((item) => (
+            <NavLink
+              key={item.label}
+              href={item.href}
+              onClick={closeAll}
+              className="py-1.5 text-[13px] tracking-[0.04em] text-ink/50"
+            >
+              {item.label}
+            </NavLink>
+          ))}
+        </div>
+
+        <div className="border-t border-line px-6 py-5 text-[13px] text-ink/50">
+          <a
+            href={`tel:${SITE.phone.replace(/\s+/g, "")}`}
+            className="block transition-colors hover:text-ink"
+          >
+            {SITE.phone}
+          </a>
+          <a
+            href={`mailto:${SITE.email}`}
+            className="mt-1.5 block transition-colors hover:text-ink"
+          >
+            {SITE.email}
+          </a>
+        </div>
+      </div>
     </header>
   );
 }

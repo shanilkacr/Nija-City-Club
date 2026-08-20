@@ -9,7 +9,67 @@ export function SiteFooter() {
 
   return (
     <footer className="border-t border-line bg-cream">
-      <div className="mx-auto grid max-w-content gap-8 px-[var(--section-x)] py-10 md:gap-8 md:py-14 md:grid-cols-12">
+      {/* Mobile — same content & type styles as desktop, laid out as a
+          2-column grid instead of the 12-col row. */}
+      <div className="grid grid-cols-2 gap-x-8 gap-y-10 px-[var(--section-x)] py-10 md:hidden">
+        <div className="col-span-2">
+          <p className="font-display text-xl tracking-[0.1em]">{SITE.brand}</p>
+          <p className="mt-1 text-[10px] tracking-[0.28em] text-ink/50 uppercase">
+            City Club
+          </p>
+          <p className="mt-4 max-w-xs text-[13px] leading-relaxed text-ink/60">
+            {SITE.tagline}. {SITE.location}.
+          </p>
+        </div>
+
+        <div>
+          <p className="eyebrow text-ink/45">Explore</p>
+          <ul className="mt-4 space-y-2.5">
+            {FOOTER_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-[13px] text-ink/70 transition-colors hover:text-ink"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex flex-col gap-10">
+          <div>
+            <p className="eyebrow text-ink/45">Spa & Fitness</p>
+            <ul className="mt-4 space-y-3">
+              {spaPreview.map((row) => (
+                <li key={row.day} className="text-[13px] text-ink/70">
+                  <span className="block text-ink">{row.day}</span>
+                  {row.hours}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col items-start gap-3">
+            <p className="eyebrow text-ink/45">Visit</p>
+            <Button href="/contact" variant="outline" size="sm">
+              Contact
+            </Button>
+            <a
+              href={WELLNESS_SITE_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[12px] text-ink/55 underline underline-offset-4 hover:text-ink"
+            >
+              Luxury Wellness
+            </a>
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop — original layout, unchanged */}
+      <div className="mx-auto hidden max-w-content gap-8 px-[var(--section-x)] py-14 md:grid md:grid-cols-12">
         <div className="md:col-span-4">
           <p className="font-display text-xl tracking-[0.1em]">{SITE.brand}</p>
           <p className="mt-1 text-[10px] tracking-[0.28em] text-ink/50 uppercase">
@@ -64,7 +124,7 @@ export function SiteFooter() {
         </div>
       </div>
 
-      <div className="border-t border-line px-[var(--section-x)] py-4 md:py-5 text-center text-[11px] text-ink/40">
+      <div className="border-t border-line px-[var(--section-x)] py-4 text-center text-[11px] text-ink/40 md:py-5">
         &copy; {new Date().getFullYear()} {SITE.name}. All rights reserved.
       </div>
     </footer>

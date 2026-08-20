@@ -63,6 +63,7 @@ export default function HomePage() {
         description="Membership is by invitation and enquiry."
         cta={{ label: "Contact Concierge", href: "/contact" }}
         secondaryCta={{ label: "Wellness", href: "/wellness" }}
+        mobileInlineButtons
       />
     </>
   );

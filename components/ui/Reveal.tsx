@@ -26,27 +26,28 @@ export function Reveal({
     const el = ref.current;
     if (!el) return;
 
-    // Make visible immediately on mobile for better UX
-    const isMobile = window.innerWidth < 768;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("is-visible");
+          observer.unobserve(el);
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
 
-    // Always make visible immediately
-    el.classList.add("is-visible");
+    observer.observe(el);
 
-    if (!isMobile) {
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            el.classList.add("is-visible");
-            observer.unobserve(el);
-          }
-        },
-        { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-      );
-
-      observer.observe(el);
-
-      return () => observer.disconnect();
+    // Elements already in view on mount (e.g. above the fold) won't get an
+    // intersection callback from a fresh observer in every browser, so
+    // check once directly as a fallback.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight && rect.bottom > 0) {
+      el.classList.add("is-visible");
+      observer.unobserve(el);
     }
+
+    return () => observer.disconnect();
   }, []);
 
   const variantClass =

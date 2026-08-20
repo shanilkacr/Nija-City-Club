@@ -106,6 +106,7 @@ Whether you are returning to swimming or refining your stroke, sessions can be a
         description="Pool privileges are included with Resident membership. Guest day access by arrangement."
         cta={{ label: "Contact Concierge", href: "/contact" }}
         secondaryCta={{ label: "Membership", href: "/membership" }}
+        mobileInlineButtons
       />
     </>
   );

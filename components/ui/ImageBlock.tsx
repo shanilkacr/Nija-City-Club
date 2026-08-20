@@ -1,6 +1,7 @@
 import Image from "next/image";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { ImageBlockGridSlider } from "./ImageBlockGridSlider";
 
 export type ImageBlockLayout = "bleed" | "split" | "grid";
 
@@ -58,26 +59,16 @@ export function ImageBlock({
 
   if (layout === "grid" && secondaryImage) {
     return (
-      <div
-        className={cn(
-          "grid gap-4 md:grid-cols-2 md:gap-6",
-          className,
-        )}
+      <ImageBlockGridSlider
+        image={image}
+        alt={alt}
+        secondaryImage={secondaryImage}
+        secondaryAlt={secondaryAlt}
+        aspectClassName={aspectClass[aspect]}
+        className={className}
       >
-        <div className={cn("relative overflow-hidden bg-sand", aspectClass[aspect])}>
-          <Image src={image} alt={alt} fill sizes="50vw" className="object-cover" />
-        </div>
-        <div className={cn("relative overflow-hidden bg-sand", aspectClass[aspect])}>
-          <Image
-            src={secondaryImage}
-            alt={secondaryAlt ?? ""}
-            fill
-            sizes="50vw"
-            className="object-cover"
-          />
-        </div>
         {children}
-      </div>
+      </ImageBlockGridSlider>
     );
   }
 

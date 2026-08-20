@@ -70,7 +70,7 @@ export function ClubAmenities() {
   }, []);
 
   return (
-    <section ref={ref} className="overflow-hidden bg-white">
+    <section ref={ref} className="overflow-hidden bg-white pb-10 sm:pb-12 lg:pb-0">
       <div className="mx-auto grid w-full max-w-content items-center gap-6 px-[var(--section-x)] md:gap-8 lg:grid-cols-2 lg:gap-14">
         <div className={cn(editorialImageColumnClass, "lg:order-2")}>
           <div data-amenities-image className={editorialImageFrameClass}>
@@ -83,12 +83,12 @@ export function ClubAmenities() {
             />
           </div>
         </div>
-        <Reveal className="lg:order-1">
+        <Reveal className="text-center lg:order-1 lg:text-left">
           <p className="eyebrow text-ink/45">{CLUB_AMENITIES.eyebrow}</p>
           <h2 className="mt-3 font-display text-(length:--text-h2) leading-snug">
             {CLUB_AMENITIES.title}
           </h2>
-          <p className="mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65">
+          <p className="mx-auto mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65 lg:mx-0">
             {CLUB_AMENITIES.body}
           </p>
         </Reveal>
@@ -186,7 +186,7 @@ export function EditorialImageSplit({ item }: { item: EditorialSplit }) {
   const imageRight = item.imagePosition !== "left";
 
   return (
-    <section className="overflow-hidden">
+    <section className="overflow-hidden pb-10 sm:pb-12 lg:pb-0">
       <div className="mx-auto grid w-full max-w-content items-center gap-6 px-[var(--section-x)] md:gap-8 lg:grid-cols-2 lg:gap-14">
         <div
           className={cn(
@@ -204,12 +204,17 @@ export function EditorialImageSplit({ item }: { item: EditorialSplit }) {
             />
           </div>
         </div>
-        <Reveal className={imageRight ? "lg:order-1" : "lg:order-2"}>
+        <Reveal
+          className={cn(
+            "text-center lg:text-left",
+            imageRight ? "lg:order-1" : "lg:order-2",
+          )}
+        >
           <p className="eyebrow text-ink/45">{item.eyebrow}</p>
           <h2 className="mt-3 font-display text-(length:--text-h2) leading-snug">
             {item.title}
           </h2>
-          <p className="mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65">
+          <p className="mx-auto mt-5 max-w-md text-[13px] leading-[1.85] text-ink/65 lg:mx-0">
             {item.body}
           </p>
           <Link

@@ -95,6 +95,7 @@ export default function MembershipPage() {
         description="Tell us how you move through Colombo — we will recommend a tier and arrange a private tour."
         cta={{ label: "Contact Concierge", href: "/contact" }}
         secondaryCta={{ label: "Fitness access", href: "/fitness#gym" }}
+        mobileInlineButtons
       />
     </>
   );

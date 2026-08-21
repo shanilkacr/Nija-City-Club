@@ -29,11 +29,11 @@ export function ClubIntro() {
     <section className="mx-auto max-w-content px-[var(--section-x)] py-[var(--section-y)]">
       <Reveal>
         <div className="mx-auto max-w-2xl space-y-4 md:space-y-5 text-center text-[12px] sm:text-[13px] leading-[1.85] text-ink md:text-ink/70">
-          <p>{CLUB_INTRO.locationLine}</p>
-          <p>{CLUB_INTRO.prestige}</p>
           <p className="font-display text-base sm:text-lg md:text-xl leading-snug text-ink">
             {CLUB_INTRO.oasis}
           </p>
+          <p>{CLUB_INTRO.locationLine}</p>
+          <p>{CLUB_INTRO.prestige}</p>
         </div>
       </Reveal>
     </section>

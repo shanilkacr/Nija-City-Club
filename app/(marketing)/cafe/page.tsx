@@ -26,6 +26,7 @@ export default function CafePage() {
         description="NIJA Café & Dining provides a calm setting for coffee, breakfast, lunch, informal meetings, private dining, and after-work gatherings."
         cta={{ label: "Enquire for booking", href: "/contact" }}
         height="tall"
+        desktopStatic
         priority
       />
 

@@ -27,6 +27,7 @@ export default function SwimmingPage() {
         description="NIJA City Club offers a private swimming environment for members who want purposeful training, relaxed immersion, and a quieter alternative to crowded public pools."
         cta={{ label: "Pool Access", href: "#pool" }}
         height="tall"
+        desktopStatic
         priority
       />
 

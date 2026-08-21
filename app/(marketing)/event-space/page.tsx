@@ -27,6 +27,7 @@ export default function EventSpacePage() {
         description="NIJA City Club provides sophisticated spaces for business meetings, conferences, corporate events, private celebrations, product launches, and intimate dinners."
         cta={{ label: "Explore spaces", href: "#meetings" }}
         height="tall"
+        desktopStatic
         priority
       />
 

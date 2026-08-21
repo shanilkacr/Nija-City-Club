@@ -146,6 +146,13 @@ h3,
   -webkit-overflow-scrolling: touch;
 }
 
+/* Disables the browser's native image/link drag-and-drop ("ghost" drag),
+   which otherwise hijacks mouse gestures meant for custom drag-to-scroll. */
+.no-native-drag {
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
 .snap-start {
   scroll-snap-align: start;
 }

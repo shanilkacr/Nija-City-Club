@@ -23,6 +23,7 @@ export default function ContactPage() {
         title="Concierge"
         description="Membership tours, day access, events, and general enquiries."
         height="medium"
+        desktopStatic
         priority
       />
 

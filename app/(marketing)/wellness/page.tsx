@@ -29,6 +29,7 @@ export default function WellnessBridgePage() {
           external: true,
         }}
         height="tall"
+        desktopStatic
         priority
       />
 

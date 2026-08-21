@@ -25,15 +25,31 @@ export type AmbianceHeroProps = {
   /** Hero content alignment */
   align?: "bottom" | "center";
 
+  /**
+   * Desktop: plain full-viewport (100vh) hero with no pin/parallax scroll
+   * animation — used on every page's hero except the home page's, which
+   * keeps the original animated/pinned desktop behavior. Mobile is
+   * unaffected either way (already static below `md`).
+   */
+  desktopStatic?: boolean;
+
   priority?: boolean;
   className?: string;
   children?: ReactNode;
 };
 
-const heightClass = {
-  screen: "h-[70vh] min-h-[420px] sm:min-h-[480px] md:min-h-[550px]",
-  tall: "h-[60vh] min-h-[360px] sm:min-h-[420px] md:min-h-[480px]",
-  medium: "h-[50vh] min-h-[280px] sm:min-h-[320px] md:min-h-[360px]",
+// Mobile portion is shared regardless of desktopStatic; the desktop (md+)
+// portion swaps between the animated variant's height and a flat 100vh.
+const mobileHeightClass = {
+  screen: "h-[70vh] min-h-[420px] sm:min-h-[480px]",
+  tall: "h-[60vh] min-h-[360px] sm:min-h-[420px]",
+  medium: "h-[50vh] min-h-[280px] sm:min-h-[320px]",
+} as const;
+
+const animatedDesktopHeightClass = {
+  screen: "md:h-[92vh] md:min-h-[560px]",
+  tall: "md:h-[78vh] md:min-h-[480px]",
+  medium: "md:h-[56vh] md:min-h-[360px]",
 } as const;
 
 /**
@@ -56,6 +72,7 @@ export function AmbianceHero({
   cta,
   height = "screen",
   align = "bottom",
+  desktopStatic = false,
   priority = false,
   className,
   children,
@@ -114,8 +131,6 @@ export function AmbianceHero({
         stage.style.right = "0";
         stage.style.bottom = "auto";
         stage.style.left = "0";
-        stage.style.zIndex = "10";
-        stage.style.pointerEvents = "auto";
       };
 
       const release = () => {
@@ -124,8 +139,6 @@ export function AmbianceHero({
         stage.style.right = "0";
         stage.style.bottom = "0";
         stage.style.left = "0";
-        stage.style.zIndex = "-1";
-        stage.style.pointerEvents = "none";
       };
 
       const apply = (progress: number) => {
@@ -160,7 +173,7 @@ export function AmbianceHero({
 
     const setup = (isDesktop: boolean) => {
       teardownScroll();
-      if (isDesktop) {
+      if (isDesktop && !desktopStatic) {
         setupDesktop();
       } else {
         setupStatic();
@@ -176,7 +189,7 @@ export function AmbianceHero({
       desktopQuery.removeEventListener("change", onChange);
       teardownScroll();
     };
-  }, []);
+  }, [desktopStatic]);
 
   const isCentered = align === "center";
 
@@ -199,7 +212,8 @@ export function AmbianceHero({
           ref={frameRef}
           className={cn(
             "relative flex w-full origin-center overflow-hidden will-change-transform",
-            heightClass[height],
+            mobileHeightClass[height],
+            desktopStatic ? "md:h-screen" : animatedDesktopHeightClass[height],
 
             // Vertical alignment
             isCentered ? "items-center" : "items-end",
@@ -224,7 +238,7 @@ export function AmbianceHero({
               "relative mx-auto w-full max-w-content px-[var(--section-x)]",
 
               // Bottom aligned hero
-              !isCentered && "pb-6 sm:pb-8 md:pb-12 lg:pb-16",
+              !isCentered && "pb-6 sm:pb-8 md:pb-24",
 
               // Centered hero
               isCentered &&

@@ -34,6 +34,7 @@ export default function FitnessPage() {
         description="NIJA City Club brings together premium gym facilities, personal training, yoga, Pilates, mobility, and recovery in a private fitness environment designed for focused progress."
         cta={{ label: "View Gym Access", href: "#gym" }}
         height="tall"
+        desktopStatic
         priority
       />
 
@@ -49,7 +50,7 @@ export default function FitnessPage() {
         <div className="grid gap-6 md:grid-cols-3">
           {FITNESS_GYM_TIERS.map((tier, i) => (
             <Reveal key={tier.id} delayMs={i * 90}>
-              <PricingCard tier={tier} />
+              <PricingCard tier={tier} hidePrice />
             </Reveal>
           ))}
         </div>

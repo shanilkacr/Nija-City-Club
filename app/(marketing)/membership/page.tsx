@@ -28,6 +28,7 @@ export default function MembershipPage() {
         description="NIJA City Club membership is designed for people who want more from their city — more privacy, more wellbeing, better connections, and a place that brings the important parts of life together."
         cta={{ label: "Request invitation", href: "/contact" }}
         height="tall"
+        desktopStatic
         priority
       />
 

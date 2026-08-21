@@ -6,13 +6,14 @@ import { cn } from "@/lib/cn";
 export type PricingCardProps = {
   tier: PricingTier;
   className?: string;
+  hidePrice?: boolean;
 };
 
 /**
  * Pricing / membership tier card — reused on Fitness (gym) and Membership.
  * Alias: MembershipTierCard.
  */
-export function PricingCard({ tier, className }: PricingCardProps) {
+export function PricingCard({ tier, className, hidePrice }: PricingCardProps) {
   return (
     <Card
       className={cn(
@@ -22,13 +23,15 @@ export function PricingCard({ tier, className }: PricingCardProps) {
       )}
     >
       <p className="eyebrow text-ink/45">{tier.name}</p>
-      <div className="mt-4 flex items-baseline gap-2">
-        <p className="font-display text-2xl md:text-[1.75rem]">{tier.price}</p>
-        {tier.period ? (
-          <span className="text-[12px] text-ink/50">{tier.period}</span>
-        ) : null}
-      </div>
-      <p className="mt-3 text-[13px] leading-relaxed text-ink/65">
+      {hidePrice ? null : (
+        <div className="mt-4 flex items-baseline gap-2">
+          <p className="font-display text-2xl md:text-[1.75rem]">{tier.price}</p>
+          {tier.period ? (
+            <span className="text-[12px] text-ink/50">{tier.period}</span>
+          ) : null}
+        </div>
+      )}
+      <p className={cn("text-[13px] leading-relaxed text-ink/65", hidePrice ? "mt-4" : "mt-3")}>
         {tier.description}
       </p>
       <ul className="mt-6 flex-1 space-y-2.5 border-t border-line pt-6">

@@ -76,7 +76,7 @@ export default function FitnessPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/training.jpg"
+            image="/images/fitness/training3.jpg"
             alt="Personal training atmosphere"
             imagePosition="left"
           >
@@ -95,7 +95,7 @@ Sessions can focus on strength, mobility, conditioning, athletic performance, or
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/yoga1.jpg"
+            image="/images/fitness/yoga.jpg"
             alt="Yoga and stretch practice"
             imagePosition="right"
           >
@@ -112,7 +112,7 @@ Sessions can focus on strength, mobility, conditioning, athletic performance, or
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/pilates1.jpg"
+            image="/images/fitness/pilates.jpg"
             alt="Pilates studio setting"
             imagePosition="left"
           >
@@ -129,7 +129,7 @@ Sessions can focus on strength, mobility, conditioning, athletic performance, or
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/fitness/recovery.jpg"
+            image="/images/fitness/recovery5.jpg"
             alt="Recovery refreshment ritual"
             imagePosition="right"
           >

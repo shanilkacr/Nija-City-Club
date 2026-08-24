@@ -19,7 +19,7 @@ export default function CafePage() {
     <>
       {/* Hero */}
       <AmbianceHero
-        image="/images/cafe/hero.jpg"
+        image="/images/cafe/hero2.jpg"
         alt="Café atmosphere at Nija City Club"
         eyebrow="A Table Between Meetings"
         title="A Private Café & Dining Experience in Colombo"
@@ -61,7 +61,7 @@ export default function CafePage() {
           <Reveal>
             <ImageBlock
               layout="split"
-              image="/images/cafe/ambiance.jpg"
+              image="/images/cafe/cafe.jpg"
               alt="Café detail and setting"
               imagePosition="left"
             >
@@ -80,9 +80,9 @@ export default function CafePage() {
         <Reveal>
           <ImageBlock
             layout="grid"
-            image="/images/cafe/refreshment.jpg"
+            image="/images/cafe/refreshment2.jpg"
             alt="Refreshment service"
-            secondaryImage="/images/cafe/detail.jpg"
+            secondaryImage="/images/cafe/refreshment1.jpg"
             secondaryAlt="Café finish detail"
             aspect="portrait"
           />

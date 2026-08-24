@@ -160,7 +160,7 @@ export const FITNESS_SERVICES: ServiceItem[] = [
     description:
       "One-to-one coaching shaped around your goals — strength, mobility, or return-to-form.",
     href: "/fitness#personal-trainer",
-    image: "/images/fitness/training.jpg",
+    image: "/images/fitness/training2.jpg",
   },
   {
     id: "yoga",
@@ -184,7 +184,7 @@ export const FITNESS_SERVICES: ServiceItem[] = [
     description:
       "Stretch, soft tissue, and quiet rooms to restore after training days.",
     href: "/fitness#recovery",
-    image: "/images/fitness/recovery.jpg",
+    image: "/images/fitness/recovery4.jpg",
   },
 ];
 
@@ -194,21 +194,21 @@ export const SWIMMING_SERVICES: ServiceItem[] = [
     title: "Pool Access",
     description: "Lane and leisure swimming in a privately held aquatic space.",
     href: "/swimming#pool",
-    image: "/images/swimming/swim.jpg",
+    image: "/images/swimming/swimming1.jpg",
   },
   {
     id: "training",
     title: "Group & Individual Training",
     description: "Technique clinics and personal coaching in the water.",
     href: "/swimming#training",
-    image: "/images/swimming/training.jpg",
+    image: "/images/swimming/group.jpg",
   },
   {
     id: "recovery",
     title: "Recovery",
     description: "Warm-down rituals and rest spaces after time in the pool.",
     href: "/swimming#recovery",
-    image: "/images/swimming/recovery.jpg",
+    image: "/images/swimming/recovery1.jpg",
   },
 ];
 

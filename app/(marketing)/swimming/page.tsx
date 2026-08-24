@@ -53,7 +53,7 @@ export default function SwimmingPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/swimming/swim.jpg"
+            image="/images/swimming/swimming2.jpg"
             alt="Club swimming pool"
             imagePosition="left"
           >
@@ -70,7 +70,7 @@ export default function SwimmingPage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/swimming/training.jpg"
+            image="/images/swimming/group1.jpg"
             alt="Swim training atmosphere"
             imagePosition="right"
           >
@@ -89,7 +89,7 @@ Whether you are returning to swimming or refining your stroke, sessions can be a
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/swimming/recovery.jpg"
+            image="/images/swimming/recovery.JPG"
             alt="Post-swim recovery space"
             imagePosition="left"
           >

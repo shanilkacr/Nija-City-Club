@@ -46,7 +46,7 @@ export function ServiceCard({
       <p className="mt-2 text-[13px] leading-relaxed text-ink/55">
         {service.description}
       </p>
-      <span className="mt-3 inline-block text-[10px] tracking-[0.14em] text-accent uppercase">
+      <span className="mt-3 inline-block text-[10px] tracking-[0.14em] text-accent uppercase hover:underline">
         Discover
       </span>
     </>

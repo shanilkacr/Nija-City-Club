@@ -20,7 +20,7 @@ export default function EventSpacePage() {
   return (
     <>
       <AmbianceHero
-        image="/images/event-space/hero.jpg"
+        image="/images/event-space/hero1.png"
         alt="Private event atmosphere"
         eyebrow="Gather with purpose"
         title="A Private Event & Meeting Venue in Colombo"
@@ -53,7 +53,7 @@ export default function EventSpacePage() {
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/event-space/meeting.jpg"
+            image="/images/event-space/meeting.png"
             alt="Meeting space ambiance"
             imagePosition="left"
           >
@@ -91,7 +91,7 @@ Treatments can be coordinated for teams, speakers, guests, or private celebratio
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/event-space/events.jpg"
+            image="/images/event-space/conference.png"
             alt="Corporate Events & Conferences"
             imagePosition="left"
           >
@@ -110,7 +110,7 @@ Catering, hospitality, and event coordination can be arranged through the Club."
         <Reveal>
           <ImageBlock
             layout="split"
-            image="/images/event-space/dining.jpg"
+            image="/images/event-space/private.png"
             alt="Private dining"
             imagePosition="right"
           >

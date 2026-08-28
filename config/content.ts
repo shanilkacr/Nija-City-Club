@@ -218,7 +218,7 @@ export const EVENT_SERVICES: ServiceItem[] = [
     title: "Meeting Spaces",
     description: "Boardrooms and breakouts with natural light and discreet service.",
     href: "/event-space#meetings",
-    image: "/images/event-space/meeting.jpg",
+    image: "/images/event-space/meeting.png",
   },
   {
     id: "treatment",
@@ -232,13 +232,13 @@ export const EVENT_SERVICES: ServiceItem[] = [
     title: "Events & Conferences",
     description: "Reception-ready rooms for launches, offsites, and evenings.",
     href: "/event-space#events",
-    image: "/images/event-space/events.jpg",
+    image: "/images/event-space/conference.png",
   },
   {
     id: "dining",
     title: "Private Dining",
     description: "Intimate tables for celebration, sealed with considered cuisine.",
     href: "/event-space#dining",
-    image: "/images/event-space/dining.jpg",
+    image: "/images/event-space/private.png",
   },
 ];

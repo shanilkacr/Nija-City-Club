@@ -236,14 +236,7 @@ export function MegaMenu() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button
-            href="/membership"
-            size="sm"
-            variant={filled ? "outline" : "outlineLight"}
-            className="hidden sm:inline-flex"
-          >
-            Membership
-          </Button>
+
           <button
             type="button"
             className={cn(
@@ -340,7 +333,7 @@ export function MegaMenu() {
               key={item.label}
               href={item.href}
               onClick={closeAll}
-              className="py-2 font-display text-2xl leading-tight text-ink"
+              className="py-2 font-display text-xl leading-tight text-ink"
             >
               {item.label}
             </NavLink>
@@ -350,16 +343,23 @@ export function MegaMenu() {
         <div className="mt-6 flex flex-col px-6 pb-6">
           {NAVIGATION.filter((item) =>
             MOBILE_SECONDARY_LABELS.has(item.label),
-          ).map((item) => (
-            <NavLink
-              key={item.label}
-              href={item.href}
-              onClick={closeAll}
-              className="py-1.5 text-[13px] tracking-[0.04em] text-ink/50"
-            >
-              {item.label}
-            </NavLink>
-          ))}
+          ).map((item) => {
+            const isContact = item.label === "Contact";
+            return (
+              <NavLink
+                key={item.label}
+                href={item.href}
+                onClick={closeAll}
+                className={
+                  isContact
+                    ? "mt-4 inline-flex min-h-[44px] w-full items-center justify-center border border-ink bg-ink px-4 py-2.5 text-[11px] uppercase tracking-[0.14em] text-cream transition-colors duration-300 hover:border-accent hover:bg-accent sm:min-h-auto"
+                    : "py-2 font-display text-xl leading-tight text-ink"
+                }
+              >
+                {item.label}
+              </NavLink>
+            );
+          })}
         </div>
 
         <div className="border-t border-line px-6 py-5 text-[13px] text-ink/50">

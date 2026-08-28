@@ -148,7 +148,8 @@ NIJA's recovery experiences are designed to complement your workout with stretch
         title="Add fitness to your membership"
         description="Resident privileges include unlimited gym access. Day and weekly rates are available for guests."
         cta={{ label: "Enquire", href: "/contact" }}
-        secondaryCta={{ label: "Membership tiers", href: "/membership" }}
+        secondaryCta={{ label: "Membership Tiers", href: "/membership" }}
+        mobileInlineButtons
       />
     </>
   );

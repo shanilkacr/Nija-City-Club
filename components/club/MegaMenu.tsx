@@ -340,7 +340,7 @@ export function MegaMenu() {
           ))}
         </nav>
 
-        <div className="mt-6 flex flex-col px-6 pb-6">
+        <div className="flex flex-col px-6 pb-6">
           {NAVIGATION.filter((item) =>
             MOBILE_SECONDARY_LABELS.has(item.label),
           ).map((item) => {

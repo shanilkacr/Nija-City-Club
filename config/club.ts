@@ -3,6 +3,8 @@
  * (https://www.iacworldwide.com/clubs/pacific-city-club/), adapted for
  * Nija City Club, Colombo. Visual treatment is Aman-inspired, not IAC.
  */
+import { WELLNESS_SITE_URL } from "./site";
+
 
 export type FacilityPanel = {
   id: string;
@@ -76,7 +78,7 @@ export const FACILITY_PANELS: FacilityPanel[] = [
   {
     id: "wellness",
     label: "Wellness",
-    href: "/wellness",
+    href: WELLNESS_SITE_URL,
     image: "/images/wellness/ambiance.jpg",
     blurb: "Spa, Ayurveda, and ritual next door.",
     points: [],
